@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
- 
+
 <head>
     <title>Submit a project | ScriptEd</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 </head>
- 
+
 <body>
- 
+
     <div class="container">
         <div class="header">
             <nav>
@@ -24,12 +25,44 @@
             </nav>
             <h3 class="text-muted">Submit a project</h3>
         </div>
- 
+
+        <div class="form">
+          <form>
+            <label for="projectName" class="sr-only">Project Name</label>
+            <input type="name" name="projectName" id="projectName" class="form-control" placeholder="Project Name" required autofocus>
+            <!-- <label for="inputEmail" class="sr-only">Email address</label>
+            <input type="email" name="inputEmail" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input type="password" name="inputPassword" id="inputPassword" class="form-control" placeholder="Password" required> -->
+
+            <button id="btnSubmit" class="btn btn-lg btn-primary btn-block" type="button">Submit</button>
+          </form>
+        </div>
+
         <footer class="footer">
             <p>&copy; Company 2015</p>
         </footer>
- 
+
     </div>
+
+    <script>
+    $(function() {
+        $('#btnSubmit').click(function() {
+
+            $.ajax({
+                url: '/submit',
+                data: $('form').serialize(),
+                type: 'POST',
+                success: function(response) {
+                    console.log(response);
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        });
+    });
+    </script>
 </body>
- 
+
 </html>
