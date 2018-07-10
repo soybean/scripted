@@ -1,0 +1,14 @@
+#nav-panel {
+  background-color: #14BACC;
+  height: 85px;
+  color: white; 
+}
+
+.card-img-top {
+  width: 100%;
+}
+
+.row {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
