@@ -13,9 +13,8 @@
   <div id='nav-panel'>ScriptEd</div>
     <div class='container'>
       <div class='card-deck'>
-        <div class='row'>
         {% for project in data %}
-
+          {% if loop.first %}<div class='row'> {% endif %}
 	<div class="card">
   	  <img class="card-img-top" src="https://images.pexels.com/photos/66997/pexels-photo-66997.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Card image cap">
           <div class="card-body">
@@ -25,12 +24,12 @@
               <span class="badge badge-pill badge-info">{{ tag }}</span>
             {% endfor %}
           </div>
+          </div>
           {% if loop.index % 3 == 0 %}
-            </div>
             </div>
             <div class='row'>
           {% endif %}
-        </div>
+          {% if loop.last %}</div>{% endif %}
 	{% endfor %}
       </div>
     </div>
