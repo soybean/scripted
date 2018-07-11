@@ -23,20 +23,156 @@
                     </li>
                 </ul>
             </nav>
+
+
             <h3 class="text-muted">Submit a project</h3>
         </div>
 
         <div class="form">
-          <form>
-            <label for="projectName" class="sr-only">Project Name</label>
-            <input type="name" name="projectName" id="projectName" class="form-control" placeholder="Project Name" required autofocus>
-            <!-- <label for="inputEmail" class="sr-only">Email address</label>
+            <form>
+<!--
+<label for="projectName" class="sr-only">Project Name</label>
+<input type="name" name="projectName" id="projectName" class="form-control" placeholder="Project Name" required autofocus>
+-->
+                <!-- <label for="inputEmail" class="sr-only">Email address</label>
             <input type="email" name="inputEmail" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
             <label for="inputPassword" class="sr-only">Password</label>
             <input type="password" name="inputPassword" id="inputPassword" class="form-control" placeholder="Password" required> -->
 
-            <button id="btnSubmit" class="btn btn-lg btn-primary btn-block" type="button">Submit</button>
-          </form>
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <form method="post">
+                                <div class="form-group ">
+                                    <label class="control-label requiredField" for="name">
+       Project Name
+       <span class="asteriskField">
+        *
+       </span>
+      </label>
+                                    <input class="form-control" id="name" name="name" type="text" />
+                                </div>
+                                <div class="form-group ">
+                                    <label class="control-label requiredField" for="text">
+       Screenshots
+       <span class="asteriskField">
+        *
+       </span>
+      </label>
+                                    <input class="form-control" id="text" name="text" type="text" />
+                                    <span class="help-block" id="hint_text">
+       Please upload at least one image
+      </span>
+                                </div>
+                                <div class="form-group ">
+                                    <label class="control-label requiredField" for="select">
+       Number of developers
+       <span class="asteriskField">
+        *
+       </span>
+      </label>
+                                    <select class="select form-control" id="select" name="select">
+       <option value="1">
+        1
+       </option>
+       <option value="2">
+        2
+       </option>
+       <option value="3">
+        3
+       </option>
+       <option value="4">
+        4
+       </option>
+      </select>
+                                </div>
+                                <div class="form-group ">
+                                    <label class="control-label requiredField" for="name1">
+       Developer name(s)
+       <span class="asteriskField">
+        *
+       </span>
+      </label>
+                                    <input class="form-control" id="name1" name="name1" type="text" />
+                                </div>
+                                <div class="form-group ">
+                                    <label class="control-label " for="name2">
+       Github username(s)
+      </label>
+                                    <input class="form-control" id="name2" name="name2" type="text" />
+                                </div>
+                                <div class="form-group ">
+                                    <label class="control-label requiredField" for="text1">
+       One-line description
+       <span class="asteriskField">
+        *
+       </span>
+      </label>
+                                    <input class="form-control" id="text1" name="text1" type="text" />
+                                </div>
+                                <div class="form-group ">
+                                    <label class="control-label " for="url">
+       URL
+      </label>
+                                    <input class="form-control" id="url" name="url" type="text" />
+                                    <span class="help-block" id="hint_url">
+       Can be a link to the live project or to the project demo deck
+      </span>
+                                </div>
+                                <div class="form-group ">
+                                    <label class="control-label " for="url1">
+       Github Repository URL
+      </label>
+                                    <input class="form-control" id="url1" name="url1" type="text" />
+                                </div>
+                                <div class="form-group ">
+                                    <label class="control-label requiredField" for="textarea">
+       Long description
+       <span class="asteriskField">
+        *
+       </span>
+      </label>
+                                    <textarea class="form-control" cols="40" id="textarea" name="textarea" rows="10"></textarea>
+                                    <span class="help-block" id="hint_textarea">
+       Include:
+- Goal of project
+- Technical hurdles
+- What's next for the project
+      </span>
+                                </div>
+                                <div class="form-group ">
+                                    <label class="control-label requiredField" for="select1">
+       Program attended
+       <span class="asteriskField">
+        *
+       </span>
+      </label>
+                                    <select class="select form-control" id="select1" name="select1">
+       <option value="Foundations">
+        Foundations
+       </option>
+       <option value="Advanced">
+        Advanced
+       </option>
+       <option value="Internships">
+        Internships
+       </option>
+      </select>
+                                </div>
+                                <div class="form-group">
+                                    <div>
+                                        <button class="btn btn-primary " name="submit" type="submit">
+        Submit
+       </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
         </div>
 
         <footer class="footer">
@@ -46,22 +182,22 @@
     </div>
 
     <script>
-    $(function() {
-        $('#btnSubmit').click(function() {
+        $(function() {
+            $('#btnSubmit').click(function() {
 
-            $.ajax({
-                url: '/submit',
-                data: $('form').serialize(),
-                type: 'POST',
-                success: function(response) {
-                    console.log(response);
-                },
-                error: function(error) {
-                    console.log(error);
-                }
+                $.ajax({
+                    url: '/submit',
+                    data: $('form').serialize(),
+                    type: 'POST',
+                    success: function(response) {
+                        console.log(response);
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
             });
         });
-    });
     </script>
 </body>
 
