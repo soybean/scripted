@@ -1,204 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <title>Submit a project | ScriptEd</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-</head>
-
-<body>
-
+  </head>
+  <body>
     <div class="container">
-        <div class="header">
-            <nav>
-                <ul class="nav nav-pills pull-right">
-                    <li role="presentation" class="active"><a href="#">Home</a>
-                    </li>
-                    <li role="presentation"><a href="#">Sign In</a>
-                    </li>
-                    <li role="presentation"><a href="showSignUp">Sign Up</a>
-                    </li>
-                </ul>
-            </nav>
+      <div class="header">
+        <nav>
+          <ul class="nav nav-pills pull-right">
+            <li role="presentation" class="active"><a href="#">Home</a>
+            </li>
+            <li role="presentation"><a href="#">Sign In</a>
+            </li>
+            <li role="presentation"><a href="showSignUp">Sign Up</a>
+            </li>
+          </ul>
+        </nav>
+        <h3 class="text-muted">Submit a project</h3>
+      </div>
+      <div class="form">
+        <form>
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-6 col-sm-6 col-xs-12">
+        <form method="post">
 
-
-            <h3 class="text-muted">Submit a project</h3>
+        <div class="form-group">
+          <label class="control-label requiredField" for="name">
+            Project Name
+            <span class="asteriskField">*</span>
+          </label>
+          <input class="form-control" id="name" name="name" type="text" />
         </div>
 
-        <div class="form">
-            <form>
-<!--
-<label for="projectName" class="sr-only">Project Name</label>
-<input type="name" name="projectName" id="projectName" class="form-control" placeholder="Project Name" required autofocus>
--->
-                <!-- <label for="inputEmail" class="sr-only">Email address</label>
-            <input type="email" name="inputEmail" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-            <label for="inputPassword" class="sr-only">Password</label>
-            <input type="password" name="inputPassword" id="inputPassword" class="form-control" placeholder="Password" required> -->
-
-
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <form method="post">
-                                <div class="form-group ">
-                                    <label class="control-label requiredField" for="name">
-       Project Name
-       <span class="asteriskField">
-        *
-       </span>
-      </label>
-                                    <input class="form-control" id="name" name="name" type="text" />
-                                </div>
-                                <div class="form-group ">
-                                    <label class="control-label requiredField" for="text">
-       Screenshots
-       <span class="asteriskField">
-        *
-       </span>
-      </label>
-                                    <input class="form-control" id="text" name="text" type="text" />
-                                    <span class="help-block" id="hint_text">
-       Please upload at least one image
-      </span>
-                                </div>
-                                <div class="form-group ">
-                                    <label class="control-label requiredField" for="select">
-       Number of developers
-       <span class="asteriskField">
-        *
-       </span>
-      </label>
-                                    <select class="select form-control" id="select" name="select">
-       <option value="1">
-        1
-       </option>
-       <option value="2">
-        2
-       </option>
-       <option value="3">
-        3
-       </option>
-       <option value="4">
-        4
-       </option>
-      </select>
-                                </div>
-                                <div class="form-group ">
-                                    <label class="control-label requiredField" for="name1">
-       Developer name(s)
-       <span class="asteriskField">
-        *
-       </span>
-      </label>
-                                    <input class="form-control" id="name1" name="name1" type="text" />
-                                </div>
-                                <div class="form-group ">
-                                    <label class="control-label " for="name2">
-       Github username(s)
-      </label>
-                                    <input class="form-control" id="name2" name="name2" type="text" />
-                                </div>
-                                <div class="form-group ">
-                                    <label class="control-label requiredField" for="text1">
-       One-line description
-       <span class="asteriskField">
-        *
-       </span>
-      </label>
-                                    <input class="form-control" id="text1" name="text1" type="text" />
-                                </div>
-                                <div class="form-group ">
-                                    <label class="control-label " for="url">
-       URL
-      </label>
-                                    <input class="form-control" id="url" name="url" type="text" />
-                                    <span class="help-block" id="hint_url">
-       Can be a link to the live project or to the project demo deck
-      </span>
-                                </div>
-                                <div class="form-group ">
-                                    <label class="control-label " for="url1">
-       Github Repository URL
-      </label>
-                                    <input class="form-control" id="url1" name="url1" type="text" />
-                                </div>
-                                <div class="form-group ">
-                                    <label class="control-label requiredField" for="textarea">
-       Long description
-       <span class="asteriskField">
-        *
-       </span>
-      </label>
-                                    <textarea class="form-control" cols="40" id="textarea" name="textarea" rows="10"></textarea>
-                                    <span class="help-block" id="hint_textarea">
-       Include:
-- Goal of project
-- Technical hurdles
-- What's next for the project
-      </span>
-                                </div>
-                                <div class="form-group ">
-                                    <label class="control-label requiredField" for="select1">
-       Program attended
-       <span class="asteriskField">
-        *
-       </span>
-      </label>
-                                    <select class="select form-control" id="select1" name="select1">
-       <option value="Foundations">
-        Foundations
-       </option>
-       <option value="Advanced">
-        Advanced
-       </option>
-       <option value="Internships">
-        Internships
-       </option>
-      </select>
-                                </div>
-                                <div class="form-group">
-                                    <div>
-                                        <button class="btn btn-primary " name="submit" type="submit">
-        Submit
-       </button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-            </form>
+        <div class="form-group">
+          <label class="control-label requiredField" for="text">
+            Screenshots
+            <span class="asteriskField">*</span>
+          </label>
+          <!-- <input class="form-control" id="screenshot" name="screenshot" type="file" /> -->
+          <form method=POST enctype=multipart/form-data action="{{ url_for('upload') }}">
+            <input type="file" name="screenshot">
+            <input type="submit">
+          </form>
+          <span class="help-block" id="hint_text">
+            Please upload at least one image
+          </span>
         </div>
 
-        <footer class="footer">
-            <p>&copy; Company 2015</p>
-        </footer>
+        <div class="form-group">
+          <label class="control-label requiredField" for="select">
+            Number of developers
+            <span class="asteriskField">*</span>
+          </label>
+          <select class="select form-control" id="num_developers" name="num_developers">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+          </select>
+        </div>
 
+        <div class="form-group">
+          <label class="control-label requiredField" for="name1">
+          Developer name(s)
+            <span class="asteriskField">*</span>
+          </label>
+          <input class="form-control" id="developers" name="developers" type="text" />
+        </div>
+
+        <div class="form-group">
+          <label class="control-label " for="name2">
+          Github username(s)
+          </label>
+          <input class="form-control" id="github_usernames" name="github_usernames" type="text" />
+        </div>
+
+        <div class="form-group">
+          <label class="control-label requiredField" for="text1">
+          One-line description
+          <span class="asteriskField">*</span>
+          </label>
+          <input class="form-control" id="description" name="description" type="text" />
+        </div>
+
+        <div class="form-group">
+          <label class="control-label" for="url">URL</label>
+          <input class="form-control" id="link" name="link" type="text" />
+          <span class="help-block" id="hint_url">
+          Can be a link to the live project or to the project demo deck
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label " for="url1">
+          Github Repository URL
+          </label>
+          <input class="form-control" id="github_repo" name="github_repo" type="text" />
+        </div>
+
+        <div class="form-group">
+          <label class="control-label requiredField" for="textarea">
+            Long description
+            <span class="asteriskField">*</span>
+          </label>
+          <textarea class="form-control" cols="40" id="long_description" name="long_description" rows="10"></textarea>
+          <span class="help-block" id="hint_textarea">
+            Include:
+            - Goal of project
+            - Technical hurdles
+            - What's next for the project
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label requiredField" for="program_attended">
+            Program attended
+            <span class="asteriskField">*</span>
+          </label>
+          <select class="select form-control" id="program_attended" name="program_attended" name="select1">
+            <option value="Foundations">Foundations</option>
+            <option value="Advanced">Advanced</option>
+            <option value="Internships">Internships</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label requiredField" for="text">
+            Email
+            <span class="asteriskField">*</span>
+          </label>
+          <input class="form-control" id="email" name="email" type="email" />
+          <span class="help-block" id="hint_text">
+            Please enter an email we can contact you with.
+          </span>
+        </div>
+
+        <div class="form-group">
+          <button class="btn btn-primary " name="submit" type="submit" id="btn_submit">
+            Submit
+          </button>
+        </div>
+
+        </form>
+        </div>
+        </div>
+        </div>
+        </form>
+      </div>
+      <footer class="footer">
+        <p>&copy; Company 2015</p>
+      </footer>
     </div>
-
     <script>
-        $(function() {
-            $('#btnSubmit').click(function() {
-
-                $.ajax({
-                    url: '/submit',
-                    data: $('form').serialize(),
-                    type: 'POST',
-                    success: function(response) {
-                        console.log(response);
-                    },
-                    error: function(error) {
-                        console.log(error);
-                    }
-                });
-            });
+      $(function() {
+        $('#btn_submit').click(function() {
+          $.ajax({
+              url: '/submit',
+              data: $('file').serialize(),
+              type: 'POST',
+              success: function(response) {
+                  console.log(response);
+              },
+              error: function(error) {
+                  console.log(error);
+              }
+          });
         });
+      });
     </script>
-</body>
-
+  </body>
 </html>
