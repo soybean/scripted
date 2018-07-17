@@ -11,3 +11,11 @@ SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://%s:%s@scripted.csi6qpe1wnpo.us-east-2
 
 SQLALCHEMY_POOL_RECYCLE = 3600
 WTF_CSRF_ENABLED = True
+
+# Mail settings
+MAIL_SERVER = 'smtp.gmail.com'
+MAIL_PORT = 465
+MAIL_USERNAME = 'melaniensawyer@gmail.com'
+MAIL_PASSWORD = 'Clinton23'
+MAIL_USE_TLS = False
+MAIL_USE_SSL = True
