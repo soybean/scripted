@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from app import db, app
 from app.models import Project
 from flask_mail import Mail, Message
+from werkzeug.utils import secure_filename
 
 app.config['MAIL_SERVER']='smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
@@ -42,7 +43,6 @@ def gallery():
         for it in result2:
             d['tags'].append(it)
         allItems.append(d)
-    print(allItems)
     return render_template('gallery.html', data=allItems, tags=tagsResult)
 
 @app.route("/submit", methods=['GET', 'POST'])
@@ -55,25 +55,21 @@ def submit():
                 db.session.add(Project(name=name))
                 db.session.commit()
                 db.session.close()
-                print("1")
                 return json.dumps({'html':'<span>Project Added</span>'})
             except Exception as e:
                 db.session.rollback()
-                print("2")
                 print(e)
                 return json.dumps({'error':str(e)})
         else:
-            print("3")
             return json.dumps({'html':'<span>Enter the required fields</span>'})
     else:
-        print("4")
         return render_template('form.html')
 
 # Database functions
 
 # Admin panel function
 # POST request if admin is approving, denying, or deleting a project.
-@app.route("/adminPanel", methods=['GET', 'POST'])
+@app.route("/admin", methods=['GET', 'POST'])
 def admin():
     if request.method == "POST":
         feedbacktext = request.form['myform']
@@ -91,7 +87,10 @@ def admin():
         approve = request.args.getlist('approve')
 
     if 'user' in session:
-        return render_template('adminView.html', data=otherdata)
+        query = "SELECT * FROM project;"
+        result = db.session.execute(query)
+        
+        return render_template('adminView.html', data=result)
     else:
         return redirect(url_for('login'))
 
@@ -108,10 +107,14 @@ def login():
     return render_template('login.html', error=error)
 
 
-@app.route('/adminAction/<int:reject>', methods=['POST'])
-def adminAction(reject):
-    print(reject)
-
+@app.route('/upload', methods=['GET', 'POST'])
+def upload():
+    if request.method == 'POST':
+        f = request.files['file']
+        f.save(secure_filename(f.filename))
+        return 'file uploaded successfully'
+    else:
+        return render_template('upload.html')
 
 if __name__ == "__main__":
     app.run()
