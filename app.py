@@ -4,7 +4,6 @@ from flask_sqlalchemy import SQLAlchemy
 from app import db, app
 from app.models import Projects
 
-from werkzeug.utils import secure_filename
 from PIL import Image
 
 # app.debug = True
@@ -16,11 +15,6 @@ db = SQLAlchemy(app)
 
 data = [ {"title": "Test 1", "description": "This is an example description", "tags":{"C++", "Python", "R"}}, {"title": "Test 2", "description": "This is an example description number 2", "tags":{"C++", "Python", "R"}}, {"title": "Test 1", "description": "This is an example description", "tags":{"C++", "Python", "R"}}, {"title": "Test 2", "description": "This is an example description number 2", "tags":{"C++", "Python", "R"}}, {"title": "Test 1", "description": "This is an example description", "tags":{"C++", "Python", "R"}}, {"title": "Test 2", "description": "This is an example description number 2", "tags":{"C++", "Python", "R"}}, {"title": "Test 1", "description": "This is an example description", "tags":{"C++", "Python", "R"}}, {"title": "Test 2", "description": "This is an example description number 2", "tags":{"C++", "Python", "R"}}]
 
-# screenshots
-# screenshots = UploadSet('screenshots', IMAGES)
-# app.config['UPLOADED_SCREENSHOTS_DEST'] = 'static/img'
-# configure_uploads(app, screenshots)
-
 @app.route("/")
 def gallery():
     return render_template('gallery.html', data=data)
@@ -28,20 +22,17 @@ def gallery():
 @app.route("/submit", methods=['GET', 'POST'])
 def submit():
     if request.method == 'POST':
-        print ("--------------")
-        print (request.files)
-        print (request.form)
+        # print ("--------------")
+        # print (request.files)
+        # print (request.form)
 
         name = request.form['name']
         if 'screenshot' in request.files:
             f = request.files['screenshot']
             img = Image.open(f)
-            print (img.size)
-            print ("/static/img/" + f.filename)
-            img.save("../static/img/" + f.filename, "JPG")
-            # f.save("\\static\\img", f.filename)
-            # f.close()
-        screenshot = "/static/img/" + f.filename
+            path = "static/img/" + f.filename
+            img.save(path)
+        screenshot = "static/img/" + f.filename
         num_developers = request.form['num_developers']
         developers = request.form['developers']
         github_usernames = request.form['github_usernames']
@@ -53,7 +44,7 @@ def submit():
         email = request.form['email']
         if name:
             try:
-                print("!!!!!!!!!!")
+                # print("!!!!!!!!!!")
                 db.session.add(Projects(name=name, \
                                        screenshot=screenshot, \
                                        num_developers=num_developers, \
@@ -66,7 +57,7 @@ def submit():
                                        program_attended=program_attended, \
                                        email=email
                                        ))
-                print("???????")
+                # print("???????")
                 db.session.commit()
                 db.session.close()
                 return json.dumps({'html':'<span>Project Added</span>'})

@@ -43,10 +43,6 @@
             <span class="asteriskField">*</span>
           </label>
           <input class="form-control" id="screenshot" name="screenshot" type="file" />
-          <!-- <form method=POST enctype=multipart/form-data action="{{ url_for('submit') }}">
-            <input type="file" name="screenshot">
-            <input type="submit">
-          </form> -->
           <span class="help-block" id="hint_text">
             Please upload at least one image
           </span>
@@ -162,8 +158,6 @@
           var form_data = new FormData($('form')[0]);
           $.ajax({
               url: '/submit',
-              // data: $('form').serialize(),
-              // type: 'POST',
               type: 'POST',
               data: form_data,
               processData: false,
