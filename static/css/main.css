@@ -1,7 +1,8 @@
 #nav-panel {
-  background-color: #14BACC;
+  background-color: #0080ff;
   height: 85px;
-  color: white; 
+  color: white;
+  /*line-height: 85px;*/
 }
 
 .card-img-top {
@@ -11,4 +12,114 @@
 .row {
   margin-top: 15px;
   margin-bottom: 15px;
+}
+
+#page-title {
+  font-size: 28pt;
+  margin-left: 88.5px;
+  font-family: "Helvetica", serif;
+  display:inline-block;
+  font-weight: 700;
+  margin-top:16px;
+}
+
+.submit-button {
+  float:right;
+  margin-right: 88.5px;
+  margin-top: 24.25px;
+}
+
+.button {
+  background-color: #FFFFFF;
+  color: #14BACC;
+  /*padding: 0.5em 1.25em 0.35em 1.25em;*/
+  border-radius:3px;
+  font-size: 0.7em;
+  text-transform: uppercase;
+  text-align: center;
+  float:right;
+  width: 88px;
+  height: 34px;
+  margin-right: 88.5px;
+  margin-top: 24.25px;
+}
+
+body {
+  font-family: 'Helvetica', sans-serif;
+}
+
+.admin-container {
+  margin-top: 100px;
+}
+
+.green {
+  background-color: #029c00; !important
+}
+
+.card-title {
+  font-weight:800;
+}
+.actions {
+  width: 30%;
+}
+
+.modal-title {
+  font-weight: 800;
+}
+
+.featured-container {
+  margin-top:100px;
+}
+
+.section-title {
+  font-size: 30px;
+}
+.section-underline {
+  background-image: linear-gradient(to right, #0080ff, #17d3ff);
+  width:40px;
+  height:10px;
+}
+
+.section-underline:hover{
+  width: 100px;
+  -webkit-transition:width 300ms ease-in-out;
+  -moz-transition:width 300ms ease-in-out;
+  -o-transition:width 300ms ease-in-out;
+  transition:width 300ms ease-in-out;
+}
+.cross {
+  display:none;
+}
+
+.tag-unclicked {
+  background-color: #a0a0a0;
+}
+
+.tag-unclicked:hover {
+  background-color:#4c4c4c !important;
+}
+
+.cross-clicked {
+  display:inline-block;
+}
+
+.invisible {
+  display: none;
+}
+
+.cards {
+  display:flex;
+  flex-wrap: wrap;
+}
+.card {
+  flex: 0 1 30% !important;
+  margin-top:20px;
+}
+.card-deck {
+  justify-content: space-between;
+  margin-bottom: 100px;
+}
+.card-deck:after {
+  content: "";
+  flex: auto;
 }
