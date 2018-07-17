@@ -2,8 +2,7 @@ from flask import Flask, render_template, json, request
 from flask_sqlalchemy import SQLAlchemy
 # from config import *
 from app import db, app
-from app.models import Projects
-
+from app.models import Project
 from PIL import Image
 
 # app.debug = True
@@ -45,7 +44,7 @@ def submit():
         if name:
             try:
                 # print("!!!!!!!!!!")
-                db.session.add(Projects(name=name, \
+                db.session.add(Project(name=name, \
                                        screenshot=screenshot, \
                                        num_developers=num_developers, \
                                        developers=developers, \
