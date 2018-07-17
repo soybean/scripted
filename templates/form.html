@@ -42,11 +42,11 @@
             Screenshots
             <span class="asteriskField">*</span>
           </label>
-          <!-- <input class="form-control" id="screenshot" name="screenshot" type="file" /> -->
-          <form method=POST enctype=multipart/form-data action="{{ url_for('upload') }}">
+          <input class="form-control" id="screenshot" name="screenshot" type="file" />
+          <!-- <form method=POST enctype=multipart/form-data action="{{ url_for('submit') }}">
             <input type="file" name="screenshot">
             <input type="submit">
-          </form>
+          </form> -->
           <span class="help-block" id="hint_text">
             Please upload at least one image
           </span>
@@ -159,10 +159,15 @@
     <script>
       $(function() {
         $('#btn_submit').click(function() {
+          var form_data = new FormData($('form')[0]);
           $.ajax({
               url: '/submit',
-              data: $('file').serialize(),
+              // data: $('form').serialize(),
+              // type: 'POST',
               type: 'POST',
+              data: form_data,
+              processData: false,
+              contentType: false,
               success: function(response) {
                   console.log(response);
               },
