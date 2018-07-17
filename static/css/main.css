@@ -91,10 +91,35 @@ body {
   display:none;
 }
 
-.tag {
+.tag-unclicked {
   background-color: #a0a0a0;
 }
 
-.tag:hover {
+.tag-unclicked:hover {
   background-color:#4c4c4c !important;
+}
+
+.cross-clicked {
+  display:inline-block;
+}
+
+.invisible {
+  display: none;
+}
+
+.cards {
+  display:flex;
+  flex-wrap: wrap;
+}
+.card {
+  flex: 0 1 30% !important;
+  margin-top:20px;
+}
+.card-deck {
+  justify-content: space-between;
+  margin-bottom: 100px;
+}
+.card-deck:after {
+  content: "";
+  flex: auto;
 }
