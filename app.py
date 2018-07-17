@@ -31,13 +31,13 @@ def gallery():
     query = "SELECT name, id, description, developers from project;"
     result = db.session.execute(query)
 
-    allTags = "SELECT DISTINCT tag from tags"
+    allTags = "SELECT DISTINCT tag,color from tags"
     tagsResult = db.session.execute(allTags)
     allItems = []
     for item in result:
         d = dict(item.items())
         currID = item['id']
-        tagsQuery = "SELECT tag from tags WHERE projectID = "+str(currID)+";"
+        tagsQuery = "SELECT tag,color from tags WHERE projectID = "+str(currID)+";"
         result2 = db.session.execute(tagsQuery)
         d['tags'] = []
         for it in result2:
