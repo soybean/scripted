@@ -30,7 +30,7 @@
       <div class='card'>
         <div class='card-body'>
           {% for tag in tags %}
-          <a href="#/" class="badge badge-pill badge-primary tag-unclicked {{ tag.color }} {{ tag.tag }}" onclick='badgeClicked({{ loop.index }})' id="{{ loop.index }}">{{ tag.tag }}  <div class='cross'>&times;</div></a>
+          <a href="#/" class="badge badge-pill badge-primary {{ tag.color }} {{ tag.tag }} tag-unclicked" onclick='badgeClicked({{ loop.index }})' id="{{ loop.index }}">{{ tag.tag }}  <div class='cross'>&times;</div></a>
           {% if loop.index % 3 == 0 %}
             <br>
           {% endif %}
@@ -70,7 +70,7 @@
   <script>
     function badgeClicked(num) {
       document.getElementById(num).childNodes[1].classList.toggle('cross-clicked');
-      var tagName = document.getElementById(num).classList[5];
+      var tagName = document.getElementById(num).classList[4];
       // user selected tag
       if (document.getElementById(num).classList.contains('tag-unclicked')) {
           document.getElementById(num).classList.toggle('tag-unclicked');
@@ -78,44 +78,48 @@
           var numSelected = returnTagCount();
           // if the first tag is selected, make all invisible and grab tagged items
           if (numSelected == 1) {
-            var allProjects = document.getElementsByClassName('project');
-            for (var i = 0; i < allProjects.length; i++) {
-              allProjects[i].classList.toggle('d-none');
-            }
+            makeAllInvisible();
+            console.log(tagName);
             var taggedProjects = document.getElementsByClassName('project '+tagName);
+            console.log(taggedProjects);
             for (var i = 0; i < taggedProjects.length; i++) {
-              taggedProjects[i].classList.toggle('d-none');
+              taggedProjects[i].classList.remove('d-none');
             }
           }
           else {
-            console.log("HERE");
             var tags = getFilteredTagNames();
             var classString = "";
             for (var i = 0; i < tags.length; i++) {
               classString += tags[i] + " ";
             }
             makeAllInvisible();
-            console.log(classString);
             var toFilter = document.getElementsByClassName(classString);
-            console.log(toFilter);
             for (var i = 0; i < toFilter.length; i++) {
               toFilter[i].classList.remove('d-none');
             }
-            /*
-            var toRemove = document.getElementsByClassName("project:not("+classString+")");
-            console.log(toRemove);
-            for (var i = 0; i < toRemove.length; i++) {
-              toRemove[i].classList.add('d-none');
-            }
-            */
           }
-          console.log(returnTagCount());
       }
       // user unselected tag
       else {
         document.getElementById(num).style.backgroundColor = '#a0a0a0';
         document.getElementById(num).classList.toggle('tag-unclicked');
-        console.log(returnTagCount());
+        var numSelected = returnTagCount();
+        if (numSelected == 0) {
+          makeAllVisible();
+        }
+        else {
+            var tags = getFilteredTagNames();
+            var classString = "";
+            for (var i = 0; i < tags.length; i++) {
+              classString += tags[i] + " ";
+            }
+            makeAllInvisible();
+            var toFilter = document.getElementsByClassName(classString);
+            for (var i = 0; i < toFilter.length; i++) {
+              toFilter[i].classList.remove('d-none');
+            }
+
+        }
       }
 
     }
@@ -126,6 +130,15 @@
         allProjects[i].classList.add('d-none');
       }
     }
+
+    function makeAllVisible() {
+      var allProjects = document.getElementsByClassName('project');
+      for (var i = 0; i < allProjects.length; i++) {
+        allProjects[i].classList.remove('d-none');
+      }
+
+    }
+
 
     function returnTagCount() {
       var i = 1;
