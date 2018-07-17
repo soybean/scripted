@@ -1,29 +1,30 @@
 from flask import Flask, render_template, json, request, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
+from flask_mail import Mail, Message
 # from config import *
 from app import db, app
 from app.models import Project
 from flask_mail import Mail, Message
-
-app.config['MAIL_SERVER']='smtp.gmail.com'
-app.config['MAIL_PORT'] = 465
-app.config['MAIL_USERNAME'] = 'melaniensawyer@gmail.com'
-app.config['MAIL_PASSWORD'] = 'Clinton23'
-app.config['MAIL_USE_TLS'] = False
-app.config['MAIL_USE_SSL'] = True
-
-mail = Mail(app)
 
 app.debug = True
 app.secret_key = 'bunnies'
 
 app = Flask(__name__)
 app.config.from_object('config')
+
+mail = Mail(app)
 db = SQLAlchemy(app)
 
 app.secret_key = 'secret-key'
 
-MAIL_SUBJECT = 'Project Submission Feedback'
+CONFIRMATION_MAIL_SUBJECT = 'ScriptEd Project Submission Confirmation'
+CONFIRMATION_MAIL_SENDER = 'cyntzhou@gmail.com'
+CONFIRMATION_MAIL_BODY = "This is to confirm that you've submitted \
+    a project for ScriptEd. We will email you if your project has \
+    been approved."
+
+FEEDBACK_MAIL_SUBJECT = 'Project Submission Feedback'
+FEEDBACK_MAIL_SENDER = 'melaniensawyer@gmail.com'
 
 @app.route("/")
 def gallery():
@@ -48,19 +49,27 @@ def gallery():
 @app.route("/submit", methods=['GET', 'POST'])
 def submit():
     if request.method == 'POST':
-        name = request.form['projectName']
+        # name = request.form['projectName']
         name = 'TEST PROJECT'
         if name:
             try:
                 db.session.add(Project(name=name))
                 db.session.commit()
                 db.session.close()
-                print("1")
+
+                email = Message(subject=CONFIRMATION_MAIL_SUBJECT,
+                                body=CONFIRMATION_MAIL_BODY,
+                                sender=CONFIRMATION_MAIL_SENDER,
+                                # recipients=[request.form['email']])
+                                recipients=['cyntzhou@gmail.com'])
+                print("Mail!!")
+                mail.send(email)
+                print("mail sent!")
                 return json.dumps({'html':'<span>Project Added</span>'})
             except Exception as e:
                 db.session.rollback()
-                print("2")
-                print(e)
+                print("angery")
+                print(str(e))
                 return json.dumps({'error':str(e)})
         else:
             print("3")
@@ -80,8 +89,8 @@ def admin():
         # feedback was submitted
         if (feedbacktext):
             feedbackToSend = request.form['feedbackform']
-            msg = Message(MAIL_SUBJECT,
-                          sender='melaniensawyer@gmail.com',
+            msg = Message(FEEDBACK_MAIL_SUBJECT,
+                          sender=FEEDBACK_MAIL_SENDER,
                           recipients=['melaniensawyer@gmail.com'])
             msg.body = feedbackToSend
             mail.send(msg)
@@ -114,5 +123,4 @@ def adminAction(reject):
 
 
 if __name__ == "__main__":
-    app.run()
-
+    app.run(debug=True)

@@ -1,7 +1,7 @@
 #nav-panel {
   background-color: #0080ff;
   height: 85px;
-  color: white; 
+  color: white;
   /*line-height: 85px;*/
 }
 
@@ -15,7 +15,7 @@
 }
 
 #page-title {
-  font-size: 28pt; 
+  font-size: 28pt;
   margin-left: 88.5px;
   font-family: "Helvetica", serif;
   display:inline-block;
