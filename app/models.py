@@ -1,7 +1,7 @@
 from app import db
 from sqlalchemy.dialects.sqlite import BLOB
 
-class Projects(db.Model):
+class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(150), index=True, unique=False)
     screenshot = db.Column(db.String(1000), index=True, unique=False)
