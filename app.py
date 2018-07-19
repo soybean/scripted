@@ -86,7 +86,8 @@ def submit():
                                        github_repo=github_repo, \
                                        long_description=long_description, \
                                        program_attended=program_attended, \
-                                       email=email
+                                       email=email, \
+                                       status="pending"
                                        ))
                 # print("???????")
                 db.session.commit()
