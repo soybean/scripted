@@ -73,20 +73,21 @@ def submit():
         program_attended = request.form['program_attended']
         email = request.form['email']
 
-        if name:
+        if name and screenshot and num_developers and developers and \
+            description and long_description and program_attended and email:
             try:
                 # print("!!!!!!!!!!")
-                db.session.add(Project(name=name, \
-                                       screenshot=screenshot, \
-                                       num_developers=num_developers, \
-                                       developers=developers, \
-                                       github_usernames=github_usernames, \
-                                       description=description, \
-                                       link=link, \
-                                       github_repo=github_repo, \
-                                       long_description=long_description, \
-                                       program_attended=program_attended, \
-                                       email=email, \
+                db.session.add(Project(name=name,
+                                       screenshot=screenshot,
+                                       num_developers=num_developers,
+                                       developers=developers,
+                                       github_usernames=github_usernames,
+                                       description=description,
+                                       link=link,
+                                       github_repo=github_repo,
+                                       long_description=long_description,
+                                       program_attended=program_attended,
+                                       email=email,
                                        status="pending"
                                        ))
                 # print("???????")

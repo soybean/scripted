@@ -1,46 +1,154 @@
 {% extends 'base.html' %}
 
-{% block content %}
+{% block title %}Project Gallery{% endblock %}
 
-  <div class='container'>
-    <div class='row'>
-      <div class='featured-container'>
-        <h6 class='display-4 section-title'>Featured projects</h6>
-        <div class='section-underline'></div>
-      </div>
-    </div>
-    <div class='filter-container'>
-      <div class='card'>
-        <div class='card-body'>
-          {% for tag in tags %}
-          <a href="#/" class="badge badge-pill badge-primary {{ tag.color }} {{ tag.tag }} tag-unclicked" onclick='badgeClicked({{ loop.index }})' id="{{ loop.index }}">{{ tag.tag }}  <div class='cross'>&times;</div></a>
-          {% if loop.index % 3 == 0 %}
-            <br>
-          {% endif %}
-          {%endfor %}
+{% block content %}
+  <body>
+    <div class='container'>
+      <div class='row'>
+        <div class='featured-container'>
+          <h6 class='display-4 section-title'>Featured projects</h6>
+          <div class='section-underline'></div>
         </div>
       </div>
-      <section class='cards'>
-      <div class='card-deck'>
-        {% for project in data %}
-	<div class="card shadow project
-          {% for tag in project['tags'] %}
-            {{ tag.tag }}
-          {% endfor %}
-          ">
-  	  <img class="card-img-top" src="https://images.pexels.com/photos/66997/pexels-photo-66997.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title">{{ project['name'] }} </h5>
-            <small class='text-muted'>John Smith & George Smith </small>
-            <p class="card-text">This is an example short description.</p>
-            {% for tag in project['tags'] %}
-            <a href='#/' class="badge badge-pill badge-info {{ tag.tag }}" style='background-color: {{ tag.color }} !important;'>{{ tag.tag }}</a>
-            {% endfor %}
+      <div class='filter-container'>
+        <div class='card'>
+          <div class='card-body'>
+            {% for tag in tags %}
+            <a href="#/" class="badge badge-pill badge-primary {{ tag.color }} {{ tag.tag }} tag-unclicked" onclick='badgeClicked({{ loop.index }})' id="{{ loop.index }}">{{ tag.tag }}  <div class='cross'>&times;</div></a>
+            {% if loop.index % 3 == 0 %}
+              <br>
+            {% endif %}
+            {%endfor %}
           </div>
-          </div>
-	{% endfor %}
+        </div>
+        <section class='cards'>
+        <div class='card-deck'>
+          {% for project in data %}
+          	<div class="card shadow project
+                    {% for tag in project['tags'] %}
+                      {{ tag.tag }}
+                    {% endfor %}
+                    ">
+      	      <img class="card-img-top" src="https://images.pexels.com/photos/66997/pexels-photo-66997.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Card image cap">
+              <div class="card-body">
+                <h5 class="card-title">{{ project['name'] }} </h5>
+                <small class='text-muted'>John Smith & George Smith </small>
+                <p class="card-text">This is an example short description.</p>
+                {% for tag in project['tags'] %}
+                  <a href='#/' class="badge badge-pill badge-info {{ tag.tag }}" style='background-color: {{ tag.color }} !important;'>{{ tag.tag }}</a>
+                {% endfor %}
+              </div>
+            </div>
+  	      {% endfor %}
+        </div>
       </div>
-  </div>
-      </section>
+    </section>
+  </body>
+{% endblock %}
 
-      {% endblock %}
+
+{% block script %}
+
+  <script>
+    function badgeClicked(num) {
+      document.getElementById(num).childNodes[1].classList.toggle('cross-clicked');
+      var tagName = document.getElementById(num).classList[4];
+      // user selected tag
+      if (document.getElementById(num).classList.contains('tag-unclicked')) {
+          document.getElementById(num).classList.toggle('tag-unclicked');
+          document.getElementById(num).style.backgroundColor = document.getElementById(num).classList[3];
+          var numSelected = returnTagCount();
+          // if the first tag is selected, make all invisible and grab tagged items
+          if (numSelected == 1) {
+            makeAllInvisible();
+            console.log(tagName);
+            var taggedProjects = document.getElementsByClassName('project '+tagName);
+            console.log(taggedProjects);
+            for (var i = 0; i < taggedProjects.length; i++) {
+              taggedProjects[i].classList.remove('d-none');
+            }
+          }
+          else {
+            var tags = getFilteredTagNames();
+            var classString = "";
+            for (var i = 0; i < tags.length; i++) {
+              classString += tags[i] + " ";
+            }
+            makeAllInvisible();
+            var toFilter = document.getElementsByClassName(classString);
+            for (var i = 0; i < toFilter.length; i++) {
+              toFilter[i].classList.remove('d-none');
+            }
+          }
+      }
+      // user unselected tag
+      else {
+        document.getElementById(num).style.backgroundColor = '#a0a0a0';
+        document.getElementById(num).classList.toggle('tag-unclicked');
+        var numSelected = returnTagCount();
+        if (numSelected == 0) {
+          makeAllVisible();
+        }
+        else {
+            var tags = getFilteredTagNames();
+            var classString = "";
+            for (var i = 0; i < tags.length; i++) {
+              classString += tags[i] + " ";
+            }
+            makeAllInvisible();
+            var toFilter = document.getElementsByClassName(classString);
+            for (var i = 0; i < toFilter.length; i++) {
+              toFilter[i].classList.remove('d-none');
+            }
+
+        }
+      }
+
+    }
+
+    function makeAllInvisible() {
+      var allProjects = document.getElementsByClassName('project');
+      for (var i = 0; i < allProjects.length; i++) {
+        allProjects[i].classList.add('d-none');
+      }
+    }
+
+    function makeAllVisible() {
+      var allProjects = document.getElementsByClassName('project');
+      for (var i = 0; i < allProjects.length; i++) {
+        allProjects[i].classList.remove('d-none');
+      }
+
+    }
+
+
+    function returnTagCount() {
+      var i = 1;
+      var count = 0;
+      currentElement = document.getElementById(i);
+      while (currentElement){
+        if (!currentElement.classList.contains('tag-unclicked')) {
+          count = count + 1;
+        }
+        i += 1;
+        currentElement = document.getElementById(i);
+      }
+      return count;
+    }
+    function getFilteredTagNames() {
+      var i = 1;
+      currentElement = document.getElementById(i);
+      var out = [];
+      while (currentElement){
+        if (!currentElement.classList.contains('tag-unclicked')) {
+          var name = currentElement.classList[4];
+          out.push(name);
+        }
+        i += 1;
+        currentElement = document.getElementById(i);
+      }
+      return out;
+    }
+  </script>
+{% endblock %}
