@@ -6,6 +6,13 @@ from app import db, app
 from app.models import Project
 from PIL import Image
 
+from flask_debugtoolbar import DebugToolbarExtension
+app.debug = True
+
+app.config['SECRET_KEY'] = 'asldfkajsdlfk'
+
+toolbar = DebugToolbarExtension(app)
+
 # app.debug = True
 app.secret_key = 'bunnies'
 
@@ -15,7 +22,6 @@ app.config.from_object('config')
 mail = Mail(app)
 db = SQLAlchemy(app)
 
-# data = [ {"title": "Test 1", "description": "This is an example description", "tags":{"C++", "Python", "R"}}, {"title": "Test 2", "description": "This is an example description number 2", "tags":{"C++", "Python", "R"}}, {"title": "Test 1", "description": "This is an example description", "tags":{"C++", "Python", "R"}}, {"title": "Test 2", "description": "This is an example description number 2", "tags":{"C++", "Python", "R"}}, {"title": "Test 1", "description": "This is an example description", "tags":{"C++", "Python", "R"}}, {"title": "Test 2", "description": "This is an example description number 2", "tags":{"C++", "Python", "R"}}, {"title": "Test 1", "description": "This is an example description", "tags":{"C++", "Python", "R"}}, {"title": "Test 2", "description": "This is an example description number 2", "tags":{"C++", "Python", "R"}}]
 app.secret_key = 'secret-key'
 
 CONFIRMATION_MAIL_SUBJECT = 'ScriptEd Project Submission Confirmation'
@@ -31,7 +37,7 @@ FEEDBACK_MAIL_SENDER = 'melaniensawyer@gmail.com'
 
 @app.route("/")
 def gallery():
-    query = "SELECT name, id, description, developers from project;"
+    query = "SELECT name, id, description, developers from project WHERE status='approved' AND isDeleted='false';"
     result = db.session.execute(query)
 
     allTags = "SELECT DISTINCT tag,color from tags"
@@ -109,10 +115,8 @@ def submit():
                 print(str(e))
                 return json.dumps({'error':str(e)})
         else:
-            print("3")
             return json.dumps({'html':'<span>Enter the required fields</span>'})
     else:
-        print("4")
         return render_template('form.html')
 
 # Database functions
@@ -137,7 +141,7 @@ def admin():
         approve = request.args.getlist('approve')
 
     if 'user' in session:
-        query = "SELECT * FROM project;"
+        query = "SELECT * FROM project WHERE isDeleted='false';"
         result = db.session.execute(query)
         return render_template('adminView.html', data=result)
     else:
@@ -156,9 +160,22 @@ def login():
     return render_template('login.html', error=error)
 
 
-@app.route('/adminAction/<int:reject>', methods=['POST'])
-def adminAction(reject):
-    print(reject)
+
+@app.route('/delete', methods=["POST"])
+def delete():
+    myID = request.form['id_to_delete']
+    db.session.query(Project).filter(Project.id==myID).update({'isDeleted': 'true'})
+    db.session.commit()
+    db.session.close()
+    return(redirect(url_for('admin')))
+
+@app.route('/approve', methods=['POST'])
+def approve():
+    myID = request.form['id_to_approve']
+    db.session.query(Project).filter(Project.id==myID).update({'status':'approved'})
+    db.session.commit()
+    db.session.close()
+    return(redirect(url_for('admin')))
 
 
 if __name__ == "__main__":

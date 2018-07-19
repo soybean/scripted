@@ -15,6 +15,7 @@ class Project(db.Model):
     program_attended = db.Column(db.String(100), index=True, unique=False)
     email = db.Column(db.String(100), index=True, unique=False)
     status = db.Column(db.String(30), index=True, unique=False)
+    isDeleted = db.Column(db.String(100), index=True, unique=False)
 
     def __init__(self, name, screenshot, num_developers, developers, \
      github_usernames, description, link, github_repo, long_description, \

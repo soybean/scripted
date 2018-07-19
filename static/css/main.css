@@ -1,5 +1,5 @@
 #nav-panel {
-    background-color: #14BACC;
+    background-color: #0080ff;
     height: 85px;
     color: white;
 }
@@ -35,9 +35,11 @@ h3 {
 }
 
 .submit-button {
-    float: right;
-    margin-right: 88.5px;
-    margin-top: 24.25px;
+  border: 2px solid;
+  font-weight:800;
+  float:right;
+  margin-right: 88.5px;
+  margin-top: 17px;
 }
 
 .button {
