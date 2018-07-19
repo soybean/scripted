@@ -3,156 +3,160 @@
 {% block title %}Submit a project | ScriptEd{% endblock %}
 
 {% block content %}
-    <div class="container">
-      <div class="header">
-        <h3 class="text-muted">Submit a project</h3>
-      </div>
-      <div class="form">
-        <form>
-          <div class="container-fluid">
-            <div class="row">
-              <div class="col-md-6 col-sm-6 col-xs-12">
-        <form method="post">
+  <body>
+      <div class="container">
+        <div class="header">
+          <h3 class="text-muted">Submit a project</h3>
+        </div>
+        <div class="form">
+          <form>
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+          <form method="post">
 
-        <div class="form-group">
-          <label class="control-label requiredField" for="name">
-            Project Name
+          <div class="form-group">
+            <label class="control-label requiredField" for="name">
+              Project Name
+              <span class="asteriskField">*</span>
+            </label>
+            <input class="form-control" id="name" name="name" type="text" />
+          </div>
+
+          <div class="form-group">
+            <label class="control-label requiredField" for="text">
+              Screenshots
+              <span class="asteriskField">*</span>
+            </label>
+            <input class="form-control" id="screenshot" name="screenshot" type="file" />
+            <span class="help-block" id="hint_text">
+              Please upload at least one image
+            </span>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label requiredField" for="select">
+              Number of developers
+              <span class="asteriskField">*</span>
+            </label>
+            <select class="select form-control" id="num_developers" name="num_developers">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label requiredField" for="name1">
+            Developer name(s)
+              <span class="asteriskField">*</span>
+            </label>
+            <input class="form-control" id="developers" name="developers" type="text" />
+          </div>
+
+          <div class="form-group">
+            <label class="control-label " for="name2">
+            Github username(s)
+            </label>
+            <input class="form-control" id="github_usernames" name="github_usernames" type="text" />
+          </div>
+
+          <div class="form-group">
+            <label class="control-label requiredField" for="text1">
+            One-line description
             <span class="asteriskField">*</span>
-          </label>
-          <input class="form-control" id="name" name="name" type="text" />
-        </div>
+            </label>
+            <input class="form-control" id="description" name="description" type="text" />
+          </div>
 
-        <div class="form-group">
-          <label class="control-label requiredField" for="text">
-            Screenshots
-            <span class="asteriskField">*</span>
-          </label>
-          <input class="form-control" id="screenshot" name="screenshot" type="file" />
-          <span class="help-block" id="hint_text">
-            Please upload at least one image
-          </span>
-        </div>
+          <div class="form-group">
+            <label class="control-label" for="url">URL</label>
+            <input class="form-control" id="link" name="link" type="text" />
+            <span class="help-block" id="hint_url">
+            Can be a link to the live project or to the project demo deck
+            </span>
+          </div>
 
-        <div class="form-group">
-          <label class="control-label requiredField" for="select">
-            Number of developers
-            <span class="asteriskField">*</span>
-          </label>
-          <select class="select form-control" id="num_developers" name="num_developers">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-          </select>
-        </div>
+          <div class="form-group">
+            <label class="control-label " for="url1">
+            Github Repository URL
+            </label>
+            <input class="form-control" id="github_repo" name="github_repo" type="text" />
+          </div>
 
-        <div class="form-group">
-          <label class="control-label requiredField" for="name1">
-          Developer name(s)
-            <span class="asteriskField">*</span>
-          </label>
-          <input class="form-control" id="developers" name="developers" type="text" />
-        </div>
+          <div class="form-group">
+            <label class="control-label requiredField" for="textarea">
+              Long description
+              <span class="asteriskField">*</span>
+            </label>
+            <textarea class="form-control" cols="40" id="long_description" name="long_description" rows="10"></textarea>
+            <span class="help-block" id="hint_textarea">
+              Include:
+              - Goal of project
+              - Technical hurdles
+              - What's next for the project
+            </span>
+          </div>
 
-        <div class="form-group">
-          <label class="control-label " for="name2">
-          Github username(s)
-          </label>
-          <input class="form-control" id="github_usernames" name="github_usernames" type="text" />
-        </div>
+          <div class="form-group">
+            <label class="control-label requiredField" for="program_attended">
+              Program attended
+              <span class="asteriskField">*</span>
+            </label>
+            <select class="select form-control" id="program_attended" name="program_attended" name="select1">
+              <option value="Foundations">Foundations</option>
+              <option value="Advanced">Advanced</option>
+              <option value="Internships">Internships</option>
+            </select>
+          </div>
 
-        <div class="form-group">
-          <label class="control-label requiredField" for="text1">
-          One-line description
-          <span class="asteriskField">*</span>
-          </label>
-          <input class="form-control" id="description" name="description" type="text" />
-        </div>
+          <div class="form-group">
+            <label class="control-label requiredField" for="text">
+              Email
+              <span class="asteriskField">*</span>
+            </label>
+            <input class="form-control" id="email" name="email" type="email" />
+            <span class="help-block" id="hint_text">
+              Please enter an email we can contact you with.
+            </span>
+          </div>
 
-        <div class="form-group">
-          <label class="control-label" for="url">URL</label>
-          <input class="form-control" id="link" name="link" type="text" />
-          <span class="help-block" id="hint_url">
-          Can be a link to the live project or to the project demo deck
-          </span>
-        </div>
+          <div class="form-group">
+            <button class="btn btn-primary " name="submit" type="submit" id="btn_submit">
+              Submit
+            </button>
+          </div>
 
-        <div class="form-group">
-          <label class="control-label " for="url1">
-          Github Repository URL
-          </label>
-          <input class="form-control" id="github_repo" name="github_repo" type="text" />
-        </div>
-
-        <div class="form-group">
-          <label class="control-label requiredField" for="textarea">
-            Long description
-            <span class="asteriskField">*</span>
-          </label>
-          <textarea class="form-control" cols="40" id="long_description" name="long_description" rows="10"></textarea>
-          <span class="help-block" id="hint_textarea">
-            Include:
-            - Goal of project
-            - Technical hurdles
-            - What's next for the project
-          </span>
-        </div>
-
-        <div class="form-group">
-          <label class="control-label requiredField" for="program_attended">
-            Program attended
-            <span class="asteriskField">*</span>
-          </label>
-          <select class="select form-control" id="program_attended" name="program_attended" name="select1">
-            <option value="Foundations">Foundations</option>
-            <option value="Advanced">Advanced</option>
-            <option value="Internships">Internships</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label class="control-label requiredField" for="text">
-            Email
-            <span class="asteriskField">*</span>
-          </label>
-          <input class="form-control" id="email" name="email" type="email" />
-          <span class="help-block" id="hint_text">
-            Please enter an email we can contact you with.
-          </span>
-        </div>
-
-        <div class="form-group">
-          <button class="btn btn-primary " name="submit" type="submit" id="btn_submit">
-            Submit
-          </button>
-        </div>
-
-        </form>
-        </div>
+          </form>
+          </div>
         </div>
         </div>
         </form>
       </div>
     </div>
-    <script>
-      $(function() {
-        $('#btn_submit').click(function() {
-          var form_data = new FormData($('form')[0]);
-          $.ajax({
-              url: '/submit',
-              type: 'POST',
-              data: form_data,
-              processData: false,
-              contentType: false,
-              success: function(response) {
-                  console.log(response);
-              },
-              error: function(error) {
-                  console.log(error);
-              }
-          });
+  </body>
+{% endblock %}
+
+{% block script %}
+  <script>
+    $(function() {
+      $('#btn_submit').click(function() {
+        var form_data = new FormData($('form')[0]);
+        $.ajax({
+            url: '/submit',
+            type: 'POST',
+            data: form_data,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                console.log(response);
+            },
+            error: function(error) {
+                console.log(error);
+            }
         });
       });
-    </script>
-
+    });
+  </script>
 {% endblock %}
