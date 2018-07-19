@@ -1,5 +1,5 @@
 #nav-panel {
-    background-color: #14BACC;
+    background-color: #0080ff;
     height: 85px;
     color: white;
 }
@@ -26,111 +26,166 @@ h3 {
 }
 
 #page-title {
-  font-size: 28pt;
-  margin-left: 88.5px;
-  font-family: "Helvetica", serif;
-  display:inline-block;
-  font-weight: 700;
-  margin-top:16px;
+    font-size: 28pt;
+    margin-left: 88.5px;
+    font-family: "Helvetica", serif;
+    display: inline-block;
+    font-weight: 700;
+    margin-top: 16px;
 }
 
 .submit-button {
+  border: 2px solid;
+  font-weight:800;
   float:right;
   margin-right: 88.5px;
-  margin-top: 24.25px;
+  margin-top: 17px;
 }
 
 .button {
-  background-color: #FFFFFF;
-  color: #14BACC;
-  /*padding: 0.5em 1.25em 0.35em 1.25em;*/
-  border-radius:3px;
-  font-size: 0.7em;
-  text-transform: uppercase;
-  text-align: center;
-  float:right;
-  width: 88px;
-  height: 34px;
-  margin-right: 88.5px;
-  margin-top: 24.25px;
+    background-color: #FFFFFF;
+    color: #14BACC;
+    /*padding: 0.5em 1.25em 0.35em 1.25em;*/
+    border-radius: 3px;
+    font-size: 0.7em;
+    text-transform: uppercase;
+    text-align: center;
+    float: right;
+    width: 88px;
+    height: 34px;
+    margin-right: 88.5px;
+    margin-top: 24.25px;
 }
 
 body {
-  font-family: 'Helvetica', sans-serif;
+    font-family: 'Helvetica', sans-serif;
 }
 
 .admin-container {
-  margin-top: 100px;
+    margin-top: 100px;
 }
 
 .green {
-  background-color: #029c00; !important
+    background-color: #029c00;
+     !important
 }
 
 .card-title {
-  font-weight:800;
+    font-weight: 800;
 }
+
 .actions {
-  width: 30%;
+    width: 30%;
 }
 
 .modal-title {
-  font-weight: 800;
+    font-weight: 800;
 }
 
 .featured-container {
-  margin-top:100px;
+    margin-top: 100px;
 }
 
 .section-title {
-  font-size: 30px;
-}
-.section-underline {
-  background-image: linear-gradient(to right, #0080ff, #17d3ff);
-  width:40px;
-  height:10px;
+    font-size: 30px;
 }
 
-.section-underline:hover{
-  width: 100px;
-  -webkit-transition:width 300ms ease-in-out;
-  -moz-transition:width 300ms ease-in-out;
-  -o-transition:width 300ms ease-in-out;
-  transition:width 300ms ease-in-out;
+.section-underline {
+    background-image: linear-gradient(to right, #0080ff, #17d3ff);
+    width: 40px;
+    height: 10px;
 }
+
+.section-underline:hover {
+    width: 100px;
+    -webkit-transition: width 300ms ease-in-out;
+    -moz-transition: width 300ms ease-in-out;
+    -o-transition: width 300ms ease-in-out;
+    transition: width 300ms ease-in-out;
+}
+
 .cross {
-  display:none;
+    display: none;
 }
 
 .tag-unclicked {
-  background-color: #a0a0a0;
+    background-color: #a0a0a0;
 }
 
 .tag-unclicked:hover {
-  background-color:#4c4c4c !important;
+    background-color: #4c4c4c !important;
 }
 
 .cross-clicked {
-  display:inline-block;
+    display: inline-block;
 }
 
 .invisible {
-  display: none;
+    display: none;
 }
 
 .cards {
-  display:flex;
-  flex-wrap: wrap;
+    display: flex;
+    flex-wrap: wrap;
 }
+
 .card {
-  flex: 0 1 30% !important;
-  margin-top:20px;
+    flex: 0 1 30% !important;
+    margin-top: 20px;
 }
+
 .card-deck {
-  justify-content: space-between;
-  margin-bottom: 100px;
+    justify-content: space-between;
+    margin-bottom: 100px;
 }
+
 .card-deck:after {
-  content: "";
-  flex: auto;
+    content: "";
+    flex: auto;
+}
+
+/* Main carousel style */
+
+.carousel {
+    width: 600px;
+}
+
+/* Indicators list style */
+
+.article-slide .carousel-indicators {
+    bottom: 0;
+    left: 0;
+    margin-left: 5px;
+    width: 100%;
+}
+
+/* Indicators list style */
+
+.article-slide .carousel-indicators li {
+    border: medium none;
+    border-radius: 0;
+    float: left;
+    height: 54px;
+    margin-bottom: 5px;
+    margin-left: 0;
+    margin-right: 5px !important;
+    margin-top: 0;
+    width: 100px;
+}
+
+/* Indicators images style */
+
+.article-slide .carousel-indicators img {
+    border: 2px solid #FFFFFF;
+    float: left;
+    height: 54px;
+    left: 0;
+    width: 100px;
+}
+
+/* Indicators active image style */
+
+.article-slide .carousel-indicators .active img {
+    border: 2px solid #428BCA;
+    opacity: 0.7;
 }

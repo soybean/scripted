@@ -35,7 +35,6 @@
 
       <br>
       <br>
-      <form action='/adminPanel' method='post'>
         <table class="table table-striped" id='adminTable'>
     <thead>
       <tr>
@@ -66,10 +65,18 @@
         <td>{{ item.developers}} </td>
         <td class='actions'>
           {% if item.status=='approved' %}
-          <button type='button' class='btn btn-outline-danger' onclick="deleteRow({{ loop.index }})"> <i class='fa fa-trash'></i>  Delete project</button>
+	  <form action='/delete' method='post'>
+	  <input type=hidden value="{{ item.id }}"name="id_to_delete"></input>
+          <button type='submit' class='btn btn-outline-danger btn-sm' onclick="deleteRow({{ loop.index }})"> <i class='fa fa-trash'></i>  Delete project</button>
+	  </form>
           {% elif item.status=='pending' %}
-          <button type='button' class='btn btn-outline-success' onclick="approveRows({{ loop.index }})" ><i class="fa fa-check"></i>  Approve</button>
-          <button type='button' class='btn btn-outline-warning' onclick="rejectRows({{ loop.index }})" data-toggle='modal' data-target='#exampleModal'><i class="fa fa-ban"></i>  Give feedback</button>
+	  <div class='button-group'>
+          <form action='/approve' method='post'>
+          <input type=hidden value='{{ item.id }}'name='id_to_approve'style='display:inline-block;'></input>
+          <button type='submit' class='btn btn-outline-success btn-sm' onclick="approveRows({{ loop.index }})" ><i class="fa fa-check"></i>  Approve</button>
+	  </form>
+          <button type='button' class='btn btn-outline-warning btn-sm' onclick="rejectRows({{ loop.index }})" data-toggle='modal' data-target='#exampleModal'><i class="fa fa-ban"></i>  Give feedback</button>
+	  </div>
           {% else %}
           <button type='button' class='btn btn-outline-info' onclick='editFeedback({{ loop.index}})'><i class='fas fa-pencil-alt'></i>  Edit feedback</button>
           {% endif %}
@@ -104,7 +111,6 @@
         </td>
       </tr>
       {% endfor %}
-      </form>
     </tbody>
   </table>
       <br>
