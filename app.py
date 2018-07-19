@@ -160,12 +160,19 @@ def login():
     return render_template('login.html', error=error)
 
 
+
 @app.route('/delete', methods=["POST"])
 def delete():
-    print('hhhiiii')
-    print("____________________")
     myID = request.form['id_to_delete']
     db.session.query(Project).filter(Project.id==myID).update({'isDeleted': 'true'})
+    db.session.commit()
+    db.session.close()
+    return(redirect(url_for('admin')))
+
+@app.route('/approve', methods=['POST'])
+def approve():
+    myID = request.form['id_to_approve']
+    db.session.query(Project).filter(Project.id==myID).update({'status':'approved'})
     db.session.commit()
     db.session.close()
     return(redirect(url_for('admin')))
