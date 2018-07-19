@@ -1,17 +1,28 @@
 #nav-panel {
-  background-color: #0080ff;
-  height: 85px;
-  color: white;
-  /*line-height: 85px;*/
+    background-color: #14BACC;
+    height: 85px;
+    color: white;
 }
 
 .card-img-top {
-  width: 100%;
+    width: 100%;
 }
 
 .row {
-  margin-top: 15px;
-  margin-bottom: 15px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.title {
+    font-family: 'Roboto Slab', serif;
+    margin-top: 20px;
+    color: #EF5330;
+}
+
+.title h2,
+h3 {
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
 }
 
 #page-title {
