@@ -14,10 +14,11 @@ class Project(db.Model):
     long_description = db.Column(db.String(4000), index=True, unique=False)
     program_attended = db.Column(db.String(100), index=True, unique=False)
     email = db.Column(db.String(100), index=True, unique=False)
+    status = db.Column(db.String(30), index=True, unique=False)
 
     def __init__(self, name, screenshot, num_developers, developers, \
      github_usernames, description, link, github_repo, long_description, \
-     program_attended, email):
+     program_attended, email, status):
         self.name = name
         self.screenshot = screenshot
         self.num_developers = num_developers
@@ -29,6 +30,7 @@ class Project(db.Model):
         self.long_description = long_description
         self.program_attended = program_attended
         self.email = email
+        self.status = status
 
     def __repr__(self):
         return '<Project (name=%s)>' % (self.name)
