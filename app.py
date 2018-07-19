@@ -20,9 +20,11 @@ app.secret_key = 'secret-key'
 
 CONFIRMATION_MAIL_SUBJECT = 'ScriptEd Project Submission Confirmation'
 CONFIRMATION_MAIL_SENDER = 'cyntzhou@gmail.com'
-CONFIRMATION_MAIL_BODY = "This is to confirm that you've submitted \
-    a project for ScriptEd. We will email you if your project has \
-    been approved."
+CONFIRMATION_MAIL_BODY = """
+    This is to confirm that you've submitted
+    a project for ScriptEd. We will email you if your project has
+    been approved.
+"""
 
 FEEDBACK_MAIL_SUBJECT = 'Project Submission Feedback'
 FEEDBACK_MAIL_SENDER = 'melaniensawyer@gmail.com'
