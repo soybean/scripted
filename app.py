@@ -59,9 +59,7 @@ def gallery():
 def submit():
     if request.method == 'POST':
         # print ("--------------")
-        # print (request.files)
         # print (request.form)
-
         name = request.form['name']
         if 'screenshot' in request.files:
             f = request.files['screenshot']
@@ -76,6 +74,7 @@ def submit():
         link = request.form['link']
         github_repo = request.form['github_repo']
         long_description = request.form['long_description']
+        tags = request.form['tags']
         program_attended = request.form['program_attended']
         email = request.form['email']
 
@@ -92,6 +91,7 @@ def submit():
                                        link=link,
                                        github_repo=github_repo,
                                        long_description=long_description,
+                                       tags=tags,
                                        program_attended=program_attended,
                                        email=email,
                                        status="pending"
@@ -117,7 +117,9 @@ def submit():
         else:
             return json.dumps({'html':'<span>Enter the required fields</span>'})
     else:
-        return render_template('form.html')
+        allTags = "SELECT DISTINCT tag,color from tags"
+        tagsResult = db.session.execute(allTags)
+        return render_template('form.html', tags=tagsResult)
 
 # Database functions
 
