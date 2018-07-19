@@ -1,42 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
- 
-<head>
-    <title>Project Gallery | ScriptEd</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-    <link rel='stylesheet' href='../static/css/main.css'>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-</head>
- 
-<body>
-  <div id='nav-panel'>ScriptEd</div>
-    <div class='container'>
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <div class='container'>
+    <div class='row'>
+      <div class='featured-container'>
+        <h6 class='display-4 section-title'>Featured projects</h6>
+        <div class='section-underline'></div>
+      </div>
+    </div>
+    <div class='filter-container'>
+      <div class='card'>
+        <div class='card-body'>
+          {% for tag in tags %}
+          <a href="#/" class="badge badge-pill badge-primary {{ tag.color }} {{ tag.tag }} tag-unclicked" onclick='badgeClicked({{ loop.index }})' id="{{ loop.index }}">{{ tag.tag }}  <div class='cross'>&times;</div></a>
+          {% if loop.index % 3 == 0 %}
+            <br>
+          {% endif %}
+          {%endfor %}
+        </div>
+      </div>
+      <section class='cards'>
       <div class='card-deck'>
         {% for project in data %}
-          {% if loop.first %}<div class='row'> {% endif %}
-	<div class="card">
+	<div class="card shadow project
+          {% for tag in project['tags'] %}
+            {{ tag.tag }}
+          {% endfor %}
+          ">
   	  <img class="card-img-top" src="https://images.pexels.com/photos/66997/pexels-photo-66997.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Card image cap">
           <div class="card-body">
-            <h5 class="card-title">{{ project['title'] }} </h5>
-            <p class="card-text">{{ project['description'] }}</p>
+            <h5 class="card-title">{{ project['name'] }} </h5>
+            <small class='text-muted'>John Smith & George Smith </small>
+            <p class="card-text">This is an example short description.</p>
             {% for tag in project['tags'] %}
-              <span class="badge badge-pill badge-info">{{ tag }}</span>
+            <a href='#/' class="badge badge-pill badge-info {{ tag.tag }}" style='background-color: {{ tag.color }} !important;'>{{ tag.tag }}</a>
             {% endfor %}
           </div>
           </div>
-          {% if loop.index % 3 == 0 %}
-            </div>
-            <div class='row'>
-          {% endif %}
-          {% if loop.last %}</div>{% endif %}
 	{% endfor %}
       </div>
-    </div>
-        <footer class="footer">
-            <p>&copy; ScriptEd 2018</p>
-        </footer>
- 
-</body>
- 
-</html>
+  </div>
+      </section>
+
+      {% endblock %}
