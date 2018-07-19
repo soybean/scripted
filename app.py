@@ -87,7 +87,8 @@ def submit():
                                        github_repo=github_repo,
                                        long_description=long_description,
                                        program_attended=program_attended,
-                                       email=email
+                                       email=email,
+                                       status="pending"
                                        ))
                 # print("???????")
                 db.session.commit()
@@ -118,7 +119,7 @@ def submit():
 
 # Admin panel function
 # POST request if admin is approving, denying, or deleting a project.
-@app.route("/adminPanel", methods=['GET', 'POST'])
+@app.route("/admin", methods=['GET', 'POST'])
 def admin():
     if request.method == "POST":
         feedbacktext = request.form['myform']
@@ -136,7 +137,9 @@ def admin():
         approve = request.args.getlist('approve')
 
     if 'user' in session:
-        return render_template('adminView.html', data=otherdata)
+        query = "SELECT * FROM project;"
+        result = db.session.execute(query)
+        return render_template('adminView.html', data=result)
     else:
         return redirect(url_for('login'))
 
