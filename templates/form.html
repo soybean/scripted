@@ -59,7 +59,7 @@
             <label class="control-label " for="name2">
             Github username(s)
             </label>
-            <input class="form-control" id="github_usernames" name="github_usernames" type="text" />
+<input class="form-control" id="github_usernames" name="github_usernames" type="text" />
           </div>
 
           <div class="form-group">
@@ -97,6 +97,20 @@
               - Technical hurdles
               - What's next for the project
             </span>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label" for="textarea">
+              Tags
+            </label>
+              <div>
+                {% for tag in tags %}
+                <a href="#/" class="badge badge-pill badge-primary {{ tag.color }} {{ tag.tag }} tag-unclicked" onclick='badgeClicked({{ loop.index }})' id="{{ loop.index }}">{{ tag.tag }}  <div class='cross'>&times;</div></a>
+                {% if loop.index % 3 == 0 %}
+                  <br>
+                {% endif %}
+                {%endfor %}
+              </div>
           </div>
 
           <div class="form-group">
@@ -143,6 +157,8 @@
     $(function() {
       $('#btn_submit').click(function() {
         var form_data = new FormData($('form')[0]);
+        var tags = getFilteredTagNames();
+        form_data.append("tags", tags);
         $.ajax({
             url: '/submit',
             type: 'POST',
@@ -158,5 +174,82 @@
         });
       });
     });
+
+    function returnTagCount() {
+      var i = 1;
+      var count = 0;
+      currentElement = document.getElementById(i);
+      while (currentElement){
+        if (!currentElement.classList.contains('tag-unclicked')) {
+          count = count + 1;
+        }
+        i += 1;
+        currentElement = document.getElementById(i);
+      }
+      return count;
+    }
+
+    function badgeClicked(num) {
+      document.getElementById(num).childNodes[1].classList.toggle('cross-clicked');
+      var tagName = document.getElementById(num).classList[4];
+      // user selected tag
+      if (document.getElementById(num).classList.contains('tag-unclicked')) {
+          document.getElementById(num).classList.toggle('tag-unclicked');
+          document.getElementById(num).style.backgroundColor = document.getElementById(num).classList[3];
+          var numSelected = returnTagCount();
+          // if the first tag is selected, make all invisible and grab tagged items
+          if (numSelected == 1) {
+            var taggedProjects = document.getElementsByClassName('project '+tagName);
+            for (var i = 0; i < taggedProjects.length; i++) {
+              taggedProjects[i].classList.remove('d-none');
+            }
+          }
+          else {
+            var tags = getFilteredTagNames();
+            var classString = "";
+            for (var i = 0; i < tags.length; i++) {
+              classString += tags[i] + " ";
+            }
+            var toFilter = document.getElementsByClassName(classString);
+            for (var i = 0; i < toFilter.length; i++) {
+              toFilter[i].classList.remove('d-none');
+            }
+          }
+      }
+      // user unselected tag
+      else {
+        document.getElementById(num).style.backgroundColor = '#a0a0a0';
+        document.getElementById(num).classList.toggle('tag-unclicked');
+        var numSelected = returnTagCount();
+        if (numSelected == 0) {
+        }
+        else {
+            var tags = getFilteredTagNames();
+            var classString = "";
+            for (var i = 0; i < tags.length; i++) {
+              classString += tags[i] + " ";
+            }
+            var toFilter = document.getElementsByClassName(classString);
+            for (var i = 0; i < toFilter.length; i++) {
+              toFilter[i].classList.remove('d-none');
+            }
+        }
+      }
+    }
+
+    function getFilteredTagNames() {
+      var i = 1;
+      currentElement = document.getElementById(i);
+      var out = [];
+      while (currentElement){
+        if (!currentElement.classList.contains('tag-unclicked')) {
+          var name = currentElement.classList[4];
+          out.push(name);
+        }
+        i += 1;
+        currentElement = document.getElementById(i);
+      }
+      return out;
+    }
   </script>
 {% endblock %}
