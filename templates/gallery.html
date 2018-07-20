@@ -30,7 +30,7 @@
                       {{ tag.tag }}
                     {% endfor %}
                     ">
-      	      <img class="card-img-top" src="https://images.pexels.com/photos/66997/pexels-photo-66997.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Card image cap">
+			<img class="card-img-top" src="{{ project.screenshot }}" onerror='makeDefaultImage(this)' width='600px' height='250px'>
               <div class="card-body">
                 <h5 class="card-title">{{ project['name'] }} </h5>
                 <small class='text-muted'>John Smith & George Smith </small>
@@ -149,6 +149,17 @@
         currentElement = document.getElementById(i);
       }
       return out;
+    }
+
+
+    function makeDefaultImage(source) {
+	    var myColors = ["06acc2", "08c262", "6e73ff", "7bff00", "ff006f"];
+	   var randomInt = Math.round(Math.random()*(myColors.length));
+	   var randomColor = myColors[randomInt];
+	   var URL = "https://dummyimage.com/600x400/"+randomColor+"/0011ff&text=+"
+	   source.src = URL;
+	   source.onerror=null;
+	   console.log(source);
     }
   </script>
 {% endblock %}

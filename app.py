@@ -37,7 +37,7 @@ FEEDBACK_MAIL_SENDER = 'melaniensawyer@gmail.com'
 
 @app.route("/")
 def gallery():
-    query = "SELECT name, id, description, developers from project WHERE status='approved' AND isDeleted='false';"
+    query = "SELECT name, id, description, developers,screenshot from project WHERE status='approved' AND isDeleted='false';"
     result = db.session.execute(query)
 
     allTags = "SELECT DISTINCT tag,color from tags"
@@ -94,7 +94,8 @@ def submit():
                                        long_description=long_description,
                                        program_attended=program_attended,
                                        email=email,
-                                       status="pending"
+                                       status="pending",
+                                       isDeleted='false'
                                        ))
                 # print("???????")
                 db.session.commit()
@@ -126,9 +127,11 @@ def submit():
 @app.route("/admin", methods=['GET', 'POST'])
 def admin():
     if request.method == "POST":
+        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
         feedbacktext = request.form['myform']
         # feedback was submitted
         if (feedbacktext):
+            print("RECEIEVED")
             feedbackToSend = request.form['feedbackform']
             msg = Message(FEEDBACK_MAIL_SUBJECT,
                           sender=FEEDBACK_MAIL_SENDER,
@@ -175,6 +178,15 @@ def approve():
     db.session.query(Project).filter(Project.id==myID).update({'status':'approved'})
     db.session.commit()
     db.session.close()
+    return(redirect(url_for('admin')))
+
+@app.route('/feedback', methods=['POST'])
+def feedback():
+    myID = request.form['id_to_give_feedback']
+    db.session.query(Project).filter(Project.id==myID).update({'status':'feedback'})
+    db.session.commit()
+    db.session.close()
+    print("heelo...")
     return(redirect(url_for('admin')))
 
 

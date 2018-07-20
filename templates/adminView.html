@@ -75,6 +75,7 @@
           <input type=hidden value='{{ item.id }}'name='id_to_approve'style='display:inline-block;'></input>
           <button type='submit' class='btn btn-outline-success btn-sm' onclick="approveRows({{ loop.index }})" ><i class="fa fa-check"></i>  Approve</button>
 	  </form>
+	  
           <button type='button' class='btn btn-outline-warning btn-sm' onclick="rejectRows({{ loop.index }})" data-toggle='modal' data-target='#exampleModal'><i class="fa fa-ban"></i>  Give feedback</button>
 	  </div>
           {% else %}
@@ -100,7 +101,9 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick='eraseText()'>Close</button>
-  	<input type='submit' value='Submit' class='btn btn-primary' name='myform' onclick='eraseText()'/>
+	  <form action='/admin' method='post'>
+            <button type='submit' class='btn btn-primary' data-dismiss='modal' name='myform' onclick='eraseText()'>Submit</button>
+	  </form>
         </div>
       </div>
     </div>
@@ -113,8 +116,6 @@
       {% endfor %}
     </tbody>
   </table>
-      <br>
-      <input type='submit' value='Submit changes' class='btn btn-success btn-block' name='table-submit'/>
       </div>
     </div>
 
