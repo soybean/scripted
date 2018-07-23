@@ -3,34 +3,14 @@
 {% block title %}404 | Page not found{% endblock %}
 
 {% block content %}
-  <body>
-    <div class='container'>
-      <h2> Whoops! This page does not exist. </h2>
-      <a href='/'>Return home</a>
-    </div>
-  </body>
+<body>
+  <div class='container'>
+    <h2> Whoops! This page does not exist. </h2>
+    <a href='/'>Return home</a>
+  </div>
+</body>
 {% endblock %}
 
 
 {% block script %}
-
-  <script>
-    function makeDefaultImage(source) {
-	   var myColors = ["06acc2", "08c262", "6e73ff", "7bff00", "ff006f"];
-	   var randomInt = Math.round(Math.random()*(myColors.length));
-	   var randomColor = myColors[randomInt];
-	   var URL = "https://dummyimage.com/600x400/"+randomColor+"/0011ff&text=+"
-	   source.src = URL;
-	   source.onerror=null;
-	   console.log(source);
-    }
-    
-    function getUserImages(names, githubs) {
-      var nameList = names.split(',');
-      var githubList = githubs.split(',');
-
-
-
-    }
-  </script>
 {% endblock %}

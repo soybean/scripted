@@ -3,105 +3,57 @@
 {% block title %}Project Gallery{% endblock %}
 
 {% block content %}
-  <body>
-    <div class='container'>
-      <div class='row'>
-        <br>
-        <br>
-        <br>
-	<div class='col text-center'>
-        <div class='display-4'>{{ data.name }}</div>
-	</div>
-      </div>
+<body onload='parseDevNames("{{ data.developers }}", "{{ data.github_usernames }}")'>
+  <div class='container'>
+    <div class='row'>
       <br>
-      <div class='col'>
-        <div class='text-center'>
-          <img src="../{{ data.screenshot }}" onerror='makeDefaultImage(this)' width='700px'/>
-        </div>
-      </div>
-      <div class='row'>
-        <div class='col text-left'>
-          <small><strong>TAGS</strong></small>
-	</div>
-      </div>
-      <div class='row'>
-        <div class='col'>
-          <span class="badge badge-pill badge-primary">Primary</span>
-<span class="badge badge-pill badge-secondary">Secondary</span>
-<span class="badge badge-pill badge-success">Success</span>
-<span class="badge badge-pill badge-danger">Danger</span>
-<span class="badge badge-pill badge-warning">Warning</span>
-<span class="badge badge-pill badge-info">Info</span>
-<span class="badge badge-pill badge-light">Light</span>
-<span class="badge badge-pill badge-dark">Dark</span>
-        </div>
-      </div>
-      <div class='row'>
-        <div class='col'>
-          <div class='display-4 section-title'>Developers</div>
-        </div>
-      </div>
-      <div class= 'row'>
-        <div class='col-md-4'>
-          <div class='text-center'>
-            <img src= "https://www.github.com/soybean.png" class='round-img' width='200px'/>
-          </div>
-        </div>
-        <div class='col-md-4'>
-          <div class='text-center'>
-            <img src= "https://www.github.com/soybean.png" class='round-img' width='200px'/>
-            <br>
-            <br>
-            <text>Melanie Sawyer</text>
-            <br>
-            <small><a href='https://github.com/soybean' class='github-user'>@soybean</a></small>
-          </div>
-        </div>
-        <div class='col-md-4'>
-          <div class='text-center'>
-            <img src= "https://www.github.com/soybean.png" class='round-img' width='200px'/>
-            <br>
-            <br>
-            <text>Janice Lee</text>
-            <br>
-            <small><a href='https://github.com/soybean' class='github-user'>@soybean</a></small>
-          </div>
-        </div>
-      </div>
-      <div class='row'>
-        <div class='col'>
-          <div class='display-4 section-title'>Description</div>
-        </div>
-      </div>
-      <div class='row'>
-        <div class='col'>
-          {{ data.long_description }}
-        </div>
+      <br>
+      <br>
+      <div class='col text-center'>
+        <div class='display-4'>{{ data.name }}</div>
       </div>
     </div>
-  </body>
+    <br>
+    <div class='col'>
+      <div class='text-center'>
+        <img src="../{{ data.screenshot }}" onerror='makeDefaultImage(this)' width='700px'/>
+      </div>
+    </div>
+    <div class='row'>
+      <div class='col'>
+        <div class='display-4 section-title'>Tags</div>
+      </div>
+    </div>
+    <div class='row'>
+      <div class='col'>
+        {% for tag in data['tags'] %}
+        <span class="badge badge-pill badge-primary" style='background-color: {{ tag.color }} !important;'>{{ tag.tag }}</span>
+        {% endfor %}
+      </div>
+    </div>
+    <div class='row'>
+      <div class='col'>
+        <div class='display-4 section-title'>Developers</div>
+      </div>
+    </div>
+    <div class= 'row' id='image-row'>
+    </div>
+    <div class='row'>
+      <div class='col'>
+        <div class='display-4 section-title'>Description</div>
+      </div>
+    </div>
+    <div class='row'>
+      <div class='col'>
+        {{ data.long_description }}
+      </div>
+    </div>
+  </div>
+</body>
 {% endblock %}
 
 
 {% block script %}
 
-  <script>
-    function makeDefaultImage(source) {
-	   var myColors = ["06acc2", "08c262", "6e73ff", "7bff00", "ff006f"];
-	   var randomInt = Math.round(Math.random()*(myColors.length));
-	   var randomColor = myColors[randomInt];
-	   var URL = "https://dummyimage.com/600x400/"+randomColor+"/0011ff&text=+"
-	   source.src = URL;
-	   source.onerror=null;
-	   console.log(source);
-    }
-    
-    function getUserImages(names, githubs) {
-      var nameList = names.split(',');
-      var githubList = githubs.split(',');
-
-
-
-    }
-  </script>
+  <script src='../static/js/index.js'></script>
 {% endblock %}

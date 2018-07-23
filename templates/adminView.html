@@ -3,17 +3,17 @@
 {% block title %}Admin Panel{% endblock %}
 
 {% block content %}
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 
-  <body onload='pageLoad()'>
-    <div class='container'>
-      <div class='admin-container'>
-        <h3 class="display-4">Admin Panel</h3>
-        <div class="card">
-          <div class='card-header'>
-            <small class='text-muted'>FILTER PROJECTS</small>
-          </div>
-          <div class="card-body">
+<body onload='pageLoad()'>
+  <div class='container'>
+    <div class='admin-container'>
+      <h3 class="display-4">Admin Panel</h3>
+      <div class="card">
+        <div class='card-header'>
+          <small class='text-muted'>FILTER PROJECTS</small>
+        </div>
+        <div class="card-body">
           <div class="form-check form-check-inline">
             <input class="form-check-input" type="checkbox" id="approved-checkbox" value="option1" onclick='checkboxAction()'>
             <label class="form-check-label active" for="inlineCheckbox1"><span class="badge badge-pill badge-success">Approved</span>
@@ -27,182 +27,97 @@
           <div class="form-check form-check-inline active">
             <input class="form-check-input active" type="checkbox" id="feedback-checkbox" value="option1" onclick='checkboxAction()'>
             <label class="form-check-label active" for="inlineCheckbox1">
-            <span class="badge badge-warning badge-pill">Feedback sent</span>
+              <span class="badge badge-warning badge-pill">Feedback sent</span>
             </label>
           </div>
         </div>
       </div>
-
       <br>
       <br>
-        <table class="table table-striped" id='adminTable'>
-    <thead>
-      <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Project name</th>
-        <th scope="col">Developers</th>
-        <th scope="col">Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for item in data %}
-      <tr
-        {% if item.status=="approved" %} class='approved'
-        {% elif item.status=='submitted' %} class='submitted'
-        {% else %} class='pending'
-        {% endif %}
-      >
-        <th scope="row">{{ item.id }}</th>
-        <td>{{ item.name }}
-          {% if item.status =="approved" %}
-            <span class="badge badge-pill badge-success">Approved</span>
-          {% elif item.status == 'pending' %}
-            <span class="badge badge-pill badge-danger">Pending</span>
-          {% else %}
-            <span class="badge badge-pill badge-warning">Feedback sent</span>
-          {% endif %}
-        </td>
-        <td>{{ item.developers}} </td>
-        <td class='actions'>
-          {% if item.status=='approved' %}
-	  <form action='/delete' method='post'>
-	  <input type=hidden value="{{ item.id }}"name="id_to_delete"></input>
-          <button type='submit' class='btn btn-outline-danger btn-sm' onclick="deleteRow({{ loop.index }})"> <i class='fa fa-trash'></i>  Delete project</button>
-	  </form>
-          {% elif item.status=='pending' %}
-	  <div class='button-group'>
-          <form action='/approve' method='post'>
-          <input type=hidden value='{{ item.id }}'name='id_to_approve'style='display:inline-block;'></input>
-          <button type='submit' class='btn btn-outline-success btn-sm' onclick="approveRows({{ loop.index }})" ><i class="fa fa-check"></i>  Approve</button>
-	  </form>
-	  
-          <button type='button' class='btn btn-outline-warning btn-sm' onclick="rejectRows({{ loop.index }})" data-toggle='modal' data-target='#exampleModal'><i class="fa fa-ban"></i>  Give feedback</button>
-	  </div>
-          {% else %}
-          <button type='button' class='btn btn-outline-info' onclick='editFeedback({{ loop.index}})'><i class='fas fa-pencil-alt'></i>  Edit feedback</button>
-          {% endif %}
-  </button>
+      <table class="table table-striped" id='adminTable'>
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Project name</th>
+            <th scope="col">Developers</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in data %}
+          <tr
+                {% if item.status=="approved" %} class='approved'
+                {% elif item.status=='submitted' %} class='submitted'
+                {% else %} class='pending'
+                {% endif %}
+                >
+                <th scope="row">{{ item.id }}</th>
+                <td>{{ item.name }}
+                  {% if item.status =="approved" %}
+                  <span class="badge badge-pill badge-success">Approved</span>
+                  {% elif item.status == 'pending' %}
+                  <span class="badge badge-pill badge-danger">Pending</span>
+                  {% else %}
+                  <span class="badge badge-pill badge-warning">Feedback sent</span>
+                  {% endif %}
+                </td>
+                <td>{{ item.developers}} </td>
+                <td class='actions'>
+                  {% if item.status=='approved' %}
+                  <form action='/delete' method='post'>
+                    <input type=hidden value="{{ item.id }}"name="id_to_delete"></input>
+                    <button type='submit' class='btn btn-outline-danger btn-sm' onclick="deleteRow({{ loop.index }})"> <i class='fa fa-trash'></i>  Delete project</button>
+                  </form>
+                  {% elif item.status=='pending' %}
+                  <div class='button-group'>
+                    <form action='/approve' method='post'>
+                      <input type=hidden value='{{ item.id }}'name='id_to_approve'style='display:inline-block;'></input>
+                      <button type='submit' class='btn btn-outline-success btn-sm' onclick="approveRows({{ loop.index }})" ><i class="fa fa-check"></i>  Approve</button>
+                      <button type='button' class='btn btn-outline-warning btn-sm' onclick="rejectRows({{ loop.index }})" data-toggle='modal' data-target='#exampleModal'><i class="fa fa-ban"></i>  Give feedback</button>
+                    </form>
 
-  	  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Add feedback</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="form-group">
-            <label for="exampleFormControlTextarea1">Feedback for {{ item.name }}</label>
-            <textarea class="form-control" id="feedback-form" rows="3" name='feedbackform'></textarea>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick='eraseText()'>Close</button>
-	  <form action='/admin' method='post'>
-            <button type='submit' class='btn btn-primary' data-dismiss='modal' name='myform' onclick='eraseText()'>Submit</button>
-	  </form>
-        </div>
-      </div>
+                  </div>
+                  {% else %}
+                  <button type='button' class='btn btn-outline-info' onclick='editFeedback({{ loop.index}})'><i class='fas fa-pencil-alt'></i>  Edit feedback</button>
+                  {% endif %}
+                  </button>
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Add feedback</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <div class="form-group">
+                            <label for="exampleFormControlTextarea1">Feedback for {{ item.name }}</label>
+                            <textarea class="form-control" id="feedback-form" rows="3" name='feedbackform'></textarea>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick='eraseText()'>Close</button>
+                          <form action='/admin' method='post'>
+                            <button type='submit' class='btn btn-primary' data-dismiss='modal' name='myform' onclick='eraseText()'>Submit</button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
   </div>
 
-
-
-        </td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-      </div>
-    </div>
-
-  </body>
+</body>
 {% endblock %}
 
 {% block script %}
-  <script>
-    function approveRows(rowNumber) {
-      var tr = document.getElementById('adminTable')
-                   .getElementsByTagName('tr')[rowNumber];
-      tr.classList.remove('table-danger');
-      tr.classList.toggle('table-success');
-
-      document.getElementById(rowNumber).style.display='none';
-
-    }
-
-    function rejectRows(rowNumber) {
-      var tr = document.getElementById('adminTable')
-                   .getElementsByTagName('tr')[rowNumber];
-      tr.classList.remove('table-success');
-      tr.classList.toggle('table-danger');
-      var buttonStyle = document.getElementById(rowNumber).style.display;
-      if (buttonStyle === "none") {
-  	    document.getElementById(rowNumber).style.display = 'inline-block';
-      }
-      else {
-  	    document.getElementById(rowNumber).style.display = 'none';
-      }
-    }
-    function checkboxAction() {
-      var pending = document.getElementById('pending-checkbox').checked;
-      var approved = document.getElementById('approved-checkbox').checked;
-      var submitted = document.getElementById('feedback-checkbox').checked;
-      if (pending) {
-        var pendingItems = document.getElementsByClassName('pending');
-        var i;
-        for (i=0; i < pendingItems.length; i++) {
-          pendingItems[i].style.display = null;
-        }
-      }
-      else if (!pending) {
-        var pendingItems = document.getElementsByClassName('pending');
-        var i;
-        for (i=0; i < pendingItems.length; i++) {
-          pendingItems[i].style.display = 'none';
-        }
-      }
-      if (approved) {
-        var approvedItems = document.getElementsByClassName('approved');
-        var i;
-        for (i=0; i < approvedItems.length; i++) {
-          approvedItems[i].style.display = null;
-        }
-      }
-      else if (!approved) {
-        var approvedItems = document.getElementsByClassName('approved');
-        var i;
-        for (i=0; i < approvedItems.length; i++) {
-          approvedItems[i].style.display = 'none';
-        }
-      }
-      if (submitted) {
-        var submittedItems = document.getElementsByClassName('submitted');
-        var i;
-        for (i=0; i < submittedItems.length; i++) {
-          submittedItems[i].style.display = null;
-        }
-      }
-      else if (!submitted) {
-        var submittedItems = document.getElementsByClassName('submitted');
-        var i;
-        for (i=0; i < submittedItems.length; i++) {
-          submittedItems[i].style.display = 'none';
-        }
-      }
-
-    }
-    function pageLoad() {
-      document.getElementById('pending-checkbox').checked = true;
-      document.getElementById('approved-checkbox').checked = true;
-      document.getElementById('feedback-checkbox').checked = true;
-    }
-
-    function eraseText() {
-      document.getElementById("feedback-form").value = "";
-    }
-  </script>
+  <script src='../static/js/index.js'></script>
 {% endblock %}

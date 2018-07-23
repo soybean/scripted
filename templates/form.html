@@ -105,8 +105,9 @@
             </label>
               <div>
                 {% for tag in tags %}
+		<input type='hidden' class='tag {{ loop.index }}' value='false'>
                 <a href="#/" class="badge badge-pill badge-primary {{ tag.color }} {{ tag.tag }} tag-unclicked" onclick='badgeClicked({{ loop.index }})' id="{{ loop.index }}">{{ tag.tag }}  <div class='cross'>&times;</div></a>
-                {% if loop.index % 3 == 0 %}
+                {% if loop.index % 5 == 0 %}
                   <br>
                 {% endif %}
                 {%endfor %}
@@ -144,48 +145,13 @@
 
           </div>
         </div>
-        </form>
+       </form>
       </div>
     </div>
   </body>
 {% endblock %}
 
 {% block script %}
-  <script>
-    $(function() {
-      $('#btn_submit').click(function() {
-        var form_data = new FormData($('form')[0]);
-        var tags = getFilteredTagNames();
-        form_data.append("tags", tags);
-        $.ajax({
-            url: '/submit',
-            type: 'POST',
-            data: form_data,
-            processData: false,
-            contentType: false,
-            success: function(response) {
-                console.log(response);
-            },
-            error: function(error) {
-                console.log(error);
-            }
-        });
-      });
-    });
-
-function changeDevelopers() {
-	console.log("CLICKED");
-}
-
-document.getElementById("num_developers").onchange = function()
-{
-    var numDevelopers = parseInt(this.value);
-    $(".dev-option").remove();
-    for (var i = 0; i < numDevelopers; i++) {
-      var form = document.getElementById('developers');
-      var innerHTML = '<input class="form-control dev-option" id="developers" name="developers" placeholder="Developer #' + parseInt(i+1)+'" type="text" /> <br>'
-      form.innerHTML += innerHTML;
-    }
-};
+  <script src='../static/js/index.js'>
   </script>
 {% endblock %}

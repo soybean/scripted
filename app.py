@@ -192,7 +192,15 @@ def feedback():
 def project(id):
     query = "SELECT * FROM project WHERE id="+id+";"
     result = db.session.execute(query).first();
-    return(render_template('project2.html', data=result))
+    d = dict(result)
+    currentID = d['id']
+    tagsQuery = 'SELECT tag,color from tags WHERE projectID= ' + str(currentID) + ";"
+    tagsResult = db.session.execute(tagsQuery)
+    d['tags']=[]
+    for item in tagsResult:
+        d['tags'].append(item)
+    print(d['tags'])
+    return(render_template('project2.html', data=d))
 
 @app.errorhandler(404)
 def page_not_found(e):
