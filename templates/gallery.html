@@ -13,6 +13,7 @@
       <div class='filter-container'>
         <div class='card'>
           <div class='card-body'>
+            <p><small>Filter by tags</small></p>
             {% for tag in tags %}
             <a href="#/" class="badge badge-pill badge-primary {{ tag.color }} {{ tag.tag }} tag-unclicked" onclick='badgeClicked({{ loop.index }})' id="{{ loop.index }}">{{ tag.tag }}  <div class='cross'>&times;</div></a>
             {% if loop.index % 3 == 0 %}
@@ -29,16 +30,18 @@
                       {{ tag.tag }}
                     {% endfor %}
                     ">
+			<a class='no-deco' href='/project/{{ project['id'] }}'>
 			<img class="card-img-top" src="{{ project.screenshot }}" onerror='makeDefaultImage(this)' width='600px' height='250px'>
               <div class="card-body">
                 <h5 class="card-title">{{ project['name'] }} </h5>
-                <small class='text-muted'>John Smith & George Smith </small>
-                <p class="card-text">This is an example short description.</p>
+		<small class='text-muted'>{{ project['developers'] }}</small>
+		<p class="card-text">{{ project['description'] }}</p>
                 {% for tag in project['tags'] %}
                   <a href='#/' class="badge badge-pill badge-info {{ tag.tag }}" style='background-color: {{ tag.color }} !important;'>{{ tag.tag }}</a>
                 {% endfor %}
               </div>
             </div>
+			</a>
   	      {% endfor %}
         </div>
       </div>

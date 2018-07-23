@@ -12,7 +12,6 @@ class Project(db.Model):
     link = db.Column(db.String(100), index=True, unique=False)
     github_repo = db.Column(db.String(100), index=True, unique=False)
     long_description = db.Column(db.String(4000), index=True, unique=False)
-    tags = db.Column(db.String(150), index=True, unique=False)
     program_attended = db.Column(db.String(100), index=True, unique=False)
     email = db.Column(db.String(100), index=True, unique=False)
     status = db.Column(db.String(30), index=True, unique=False)
@@ -20,7 +19,7 @@ class Project(db.Model):
 
     def __init__(self, name, screenshot, num_developers, developers, \
      github_usernames, description, link, github_repo, long_description, \
-     tags, program_attended, email, status):
+     program_attended, email, status, isDeleted):
         self.name = name
         self.screenshot = screenshot
         self.num_developers = num_developers
@@ -30,10 +29,10 @@ class Project(db.Model):
         self.link = link
         self.github_repo = github_repo
         self.long_description = long_description
-        self.tags = tags
         self.program_attended = program_attended
         self.email = email
         self.status = status
+        self.isDeleted = isDeleted
 
     def __repr__(self):
         return '<Project (name=%s)>' % (self.name)

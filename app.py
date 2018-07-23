@@ -58,8 +58,6 @@ def gallery():
 @app.route("/submit", methods=['GET', 'POST'])
 def submit():
     if request.method == 'POST':
-        # print ("--------------")
-        # print (request.form)
         name = request.form['name']
         if 'screenshot' in request.files:
             f = request.files['screenshot']
@@ -74,7 +72,6 @@ def submit():
         link = request.form['link']
         github_repo = request.form['github_repo']
         long_description = request.form['long_description']
-        tags = request.form['tags']
         program_attended = request.form['program_attended']
         email = request.form['email']
 
@@ -91,7 +88,6 @@ def submit():
                                        link=link,
                                        github_repo=github_repo,
                                        long_description=long_description,
-                                       tags=tags,
                                        program_attended=program_attended,
                                        email=email,
                                        status="pending",
@@ -152,6 +148,7 @@ def admin():
     else:
         return redirect(url_for('login'))
 
+
 # Route for handling the login page logic
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -190,6 +187,17 @@ def feedback():
     db.session.close()
     print("heelo...")
     return(redirect(url_for('admin')))
+
+@app.route('/project/<id>', methods=['GET'])
+def project(id):
+    query = "SELECT * FROM project WHERE id="+id+";"
+    result = db.session.execute(query).first();
+    return(render_template('project2.html', data=result))
+
+@app.errorhandler(404)
+def page_not_found(e):
+    # note that we set the 404 status explicitly
+    return render_template('404.html'), 404
 
 
 if __name__ == "__main__":
