@@ -75,11 +75,12 @@ def submit():
         link = request.form['link']
         github_repo = request.form['github_repo']
         long_description = request.form['long_description']
+        tags = request.form['tags']
         program_attended = request.form['program_attended']
         email = request.form['email']
-        for i in range (1, NUM_TAGS):
+        # for i in range (1, NUM_TAGS):
             # tag was selected
-            print("HI")
+            # print("HI")
             #if(request.form['tag-'+str(i)]=="true"):
                 #db.session.add(Tags(tag="Python", projID=1,color='#FF00FF'))
                 #db.session.commit()
