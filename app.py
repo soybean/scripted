@@ -35,6 +35,8 @@ CONFIRMATION_MAIL_BODY = """
 FEEDBACK_MAIL_SUBJECT = 'Project Submission Feedback'
 FEEDBACK_MAIL_SENDER = 'melaniensawyer@gmail.com'
 
+NUM_TAGS = 9
+
 @app.route("/")
 def gallery():
     query = "SELECT name, id, description, developers,screenshot from project WHERE status='approved' AND isDeleted='false';"
@@ -74,12 +76,18 @@ def submit():
         long_description = request.form['long_description']
         program_attended = request.form['program_attended']
         email = request.form['email']
-
+        for i in range (1, NUM_TAGS):
+            # tag was selected
+            print("HI")
+            #if(request.form['tag-'+str(i)]=="true"):
+                #db.session.add(Tags(tag="Python", projID=1,color='#FF00FF'))
+                #db.session.commit()
+                #db.session.close()
         if name and screenshot and num_developers and developers and \
             description and long_description and program_attended and email:
             try:
                 # print("!!!!!!!!!!")
-                db.session.add(Project(name=name,
+                inserted = db.session.add(Project(name=name,
                                        screenshot=screenshot,
                                        num_developers=num_developers,
                                        developers=developers,
@@ -94,14 +102,16 @@ def submit():
                                        isDeleted='false'
                                        ))
                 # print("???????")
+                print(inserted.id)
                 db.session.commit()
                 db.session.close()
+
 
                 email = Message(subject=CONFIRMATION_MAIL_SUBJECT,
                                 body=CONFIRMATION_MAIL_BODY,
                                 sender=CONFIRMATION_MAIL_SENDER,
                                 # recipients=[request.form['email']])
-                                recipients=['cyntzhou@gmail.com'])
+                                recipients=['melanie.sawyer@columbia.edu'])
                 print("Mail!!")
                 mail.send(email)
                 print("mail sent!")
@@ -125,7 +135,6 @@ def submit():
 @app.route("/admin", methods=['GET', 'POST'])
 def admin():
     if request.method == "POST":
-        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
         feedbacktext = request.form['myform']
         # feedback was submitted
         if (feedbacktext):
@@ -191,7 +200,7 @@ def feedback():
 @app.route('/project/<id>', methods=['GET'])
 def project(id):
     query = "SELECT * FROM project WHERE id="+id+";"
-    result = db.session.execute(query).first();
+    result = db.session.execute(query).first()
     d = dict(result)
     currentID = d['id']
     tagsQuery = 'SELECT tag,color from tags WHERE projectID= ' + str(currentID) + ";"
@@ -199,13 +208,25 @@ def project(id):
     d['tags']=[]
     for item in tagsResult:
         d['tags'].append(item)
-    print(d['tags'])
     return(render_template('project2.html', data=d))
 
 @app.errorhandler(404)
 def page_not_found(e):
     # note that we set the 404 status explicitly
     return render_template('404.html'), 404
+
+@app.route('/draft/<id>', methods=['GET'])
+def draft(id):
+    query = "SELECT * from project WHERE id="+id+';'
+    result = db.session.execute(query).first()
+    d = dict(result)
+    currentID = d['id']
+    tagsQuery = "SELECT tag, color FROM tags WHERE projectID= " + str(currentID) + ";"
+    tagsResult = db.session.execute(tagsQuery)
+    d['tags']=[]
+    for item in tagsResult:
+        d['tags'].append(item)
+    return(render_template('project2.html', data=d))
 
 
 if __name__ == "__main__":

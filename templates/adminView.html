@@ -34,7 +34,7 @@
       </div>
       <br>
       <br>
-      <table class="table table-striped" id='adminTable'>
+      <table class="table table-striped table-hover" id='adminTable'>
         <thead>
           <tr>
             <th scope="col">ID</th>
@@ -46,9 +46,9 @@
         <tbody>
           {% for item in data %}
           <tr
-                {% if item.status=="approved" %} class='approved'
-                {% elif item.status=='submitted' %} class='submitted'
-                {% else %} class='pending'
+                {% if item.status=="approved" %} class='approved clickable-row {{ item.id }}'
+                {% elif item.status=='submitted' %} class='submitted clickable-row {{ item.id }}'
+                {% else %} class='pending clickable-row {{ item.id }}'
                 {% endif %}
                 >
                 <th scope="row">{{ item.id }}</th>

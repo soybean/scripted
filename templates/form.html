@@ -105,8 +105,8 @@
             </label>
               <div>
                 {% for tag in tags %}
-		<input type='hidden' class='tag {{ loop.index }}' value='false'>
-                <a href="#/" class="badge badge-pill badge-primary {{ tag.color }} {{ tag.tag }} tag-unclicked" onclick='badgeClicked({{ loop.index }})' id="{{ loop.index }}">{{ tag.tag }}  <div class='cross'>&times;</div></a>
+                <input type='hidden' class='tag {{ loop.index }}' value='false' name='tag-{{ loop.index }}'>
+                <a href="#/" class="badge badge-pill badge-primary {{ tag.color }} {{ tag.tag }} tag-unclicked" onclick='badgeSubmitted({{ loop.index }})' id="{{ loop.index }}">{{ tag.tag }}  <div class='cross'>&times;</div></a>
                 {% if loop.index % 5 == 0 %}
                   <br>
                 {% endif %}

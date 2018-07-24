@@ -106,7 +106,7 @@ function badgeClicked(num) {
 
 }
 
-document.getElementById("num_developers").onchange = function()
+/*document.getElementById("num_developers").onchange = function()
 {
     var numDevelopers = parseInt(this.value);
     $(".dev-option").remove();
@@ -116,6 +116,7 @@ document.getElementById("num_developers").onchange = function()
         form.innerHTML += innerHTML;
     }
 };
+*/
 
 $(function() {
     $('#btn_submit').click(function() {
@@ -233,3 +234,16 @@ function pageLoad() {
 function eraseText() {
     document.getElementById("feedback-form").value = "";
 }
+
+function badgeSubmitted(index) {
+    badgeClicked(index);
+    document.getElementsByClassName('tag '+index.toString())[0].value='true';
+}
+
+$('.clickable-row').click(function() {
+    var id = this.classList[2];
+    console.log(id);
+    window.location = "/draft/" + id.toString();
+    console.log(document.getElementById('draft-alert'));
+    document.getElementById('draft-alert').style.display ='block';
+});

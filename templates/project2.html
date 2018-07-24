@@ -4,6 +4,12 @@
 
 {% block content %}
 <body onload='parseDevNames("{{ data.developers }}", "{{ data.github_usernames }}")'>
+  <div class="alert alert-warning alert-dismissible fade show" role="alert" style='display:none;' id='draft-alert'>
+    <strong>This project is a draft and has not been approved yet.</strong> Approve this project 
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
   <div class='container'>
     <div class='row'>
       <br>
