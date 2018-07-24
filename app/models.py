@@ -19,7 +19,7 @@ class Project(db.Model):
 
     def __init__(self, name, screenshot, num_developers, developers, \
      github_usernames, description, link, github_repo, long_description, \
-     program_attended, email, status):
+     program_attended, email, status, isDeleted):
         self.name = name
         self.screenshot = screenshot
         self.num_developers = num_developers
@@ -32,6 +32,7 @@ class Project(db.Model):
         self.program_attended = program_attended
         self.email = email
         self.status = status
+        self.isDeleted = isDeleted
 
     def __repr__(self):
         return '<Project (name=%s)>' % (self.name)

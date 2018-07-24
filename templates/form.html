@@ -6,14 +6,14 @@
   <body>
       <div class="container">
         <div class="header">
+	  <br>
+	  <br>
           <h3 class="text-muted">Submit a project</h3>
         </div>
-        <div class="form">
-          <form>
+          <form method='post' action='/submit' enctype="multipart/form-data">
             <div class="container-fluid">
               <div class="row">
                 <div class="col-md-6 col-sm-6 col-xs-12">
-          <form method="post">
 
           <div class="form-group">
             <label class="control-label requiredField" for="name">
@@ -47,12 +47,12 @@
             </select>
           </div>
 
-          <div class="form-group">
+          <div class="form-group" id='developers'>
             <label class="control-label requiredField" for="name1">
             Developer name(s)
               <span class="asteriskField">*</span>
             </label>
-            <input class="form-control" id="developers" name="developers" type="text" />
+            <input class="form-control dev-option" id="developers" name="developers" type="text" />
           </div>
 
           <div class="form-group">
@@ -105,8 +105,9 @@
             </label>
               <div>
                 {% for tag in tags %}
-                <a href="#/" class="badge badge-pill badge-primary {{ tag.color }} {{ tag.tag }} tag-unclicked" onclick='badgeClicked({{ loop.index }})' id="{{ loop.index }}">{{ tag.tag }}  <div class='cross'>&times;</div></a>
-                {% if loop.index % 3 == 0 %}
+                <input type='hidden' class='tag {{ loop.index }}' value='false' name='tag-{{ loop.index }}'>
+                <a href="#/" class="badge badge-pill badge-primary {{ tag.color }} {{ tag.tag }} tag-unclicked" onclick='badgeSubmitted({{ loop.index }})' id="{{ loop.index }}">{{ tag.tag }}  <div class='cross'>&times;</div></a>
+                {% if loop.index % 5 == 0 %}
                   <br>
                 {% endif %}
                 {%endfor %}
@@ -142,114 +143,15 @@
             </button>
           </div>
 
-          </form>
           </div>
         </div>
-        </div>
-        </form>
+       </form>
       </div>
     </div>
   </body>
 {% endblock %}
 
 {% block script %}
-  <script>
-    $(function() {
-      $('#btn_submit').click(function() {
-        var form_data = new FormData($('form')[0]);
-        var tags = getFilteredTagNames();
-        form_data.append("tags", tags);
-        $.ajax({
-            url: '/submit',
-            type: 'POST',
-            data: form_data,
-            processData: false,
-            contentType: false,
-            success: function(response) {
-                console.log(response);
-            },
-            error: function(error) {
-                console.log(error);
-            }
-        });
-      });
-    });
-
-    function returnTagCount() {
-      var i = 1;
-      var count = 0;
-      currentElement = document.getElementById(i);
-      while (currentElement){
-        if (!currentElement.classList.contains('tag-unclicked')) {
-          count = count + 1;
-        }
-        i += 1;
-        currentElement = document.getElementById(i);
-      }
-      return count;
-    }
-
-    function badgeClicked(num) {
-      document.getElementById(num).childNodes[1].classList.toggle('cross-clicked');
-      var tagName = document.getElementById(num).classList[4];
-      // user selected tag
-      if (document.getElementById(num).classList.contains('tag-unclicked')) {
-          document.getElementById(num).classList.toggle('tag-unclicked');
-          document.getElementById(num).style.backgroundColor = document.getElementById(num).classList[3];
-          var numSelected = returnTagCount();
-          // if the first tag is selected, make all invisible and grab tagged items
-          if (numSelected == 1) {
-            var taggedProjects = document.getElementsByClassName('project '+tagName);
-            for (var i = 0; i < taggedProjects.length; i++) {
-              taggedProjects[i].classList.remove('d-none');
-            }
-          }
-          else {
-            var tags = getFilteredTagNames();
-            var classString = "";
-            for (var i = 0; i < tags.length; i++) {
-              classString += tags[i] + " ";
-            }
-            var toFilter = document.getElementsByClassName(classString);
-            for (var i = 0; i < toFilter.length; i++) {
-              toFilter[i].classList.remove('d-none');
-            }
-          }
-      }
-      // user unselected tag
-      else {
-        document.getElementById(num).style.backgroundColor = '#a0a0a0';
-        document.getElementById(num).classList.toggle('tag-unclicked');
-        var numSelected = returnTagCount();
-        if (numSelected == 0) {
-        }
-        else {
-            var tags = getFilteredTagNames();
-            var classString = "";
-            for (var i = 0; i < tags.length; i++) {
-              classString += tags[i] + " ";
-            }
-            var toFilter = document.getElementsByClassName(classString);
-            for (var i = 0; i < toFilter.length; i++) {
-              toFilter[i].classList.remove('d-none');
-            }
-        }
-      }
-    }
-
-    function getFilteredTagNames() {
-      var i = 1;
-      currentElement = document.getElementById(i);
-      var out = [];
-      while (currentElement){
-        if (!currentElement.classList.contains('tag-unclicked')) {
-          var name = currentElement.classList[4];
-          out.push(name);
-        }
-        i += 1;
-        currentElement = document.getElementById(i);
-      }
-      return out;
-    }
+  <script src='../static/js/index.js'>
   </script>
 {% endblock %}
