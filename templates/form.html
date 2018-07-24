@@ -3,17 +3,17 @@
 {% block title %}Submit a project | ScriptEd{% endblock %}
 
 {% block content %}
-  <body>
-      <div class="container">
-        <div class="header">
-	  <br>
-	  <br>
-          <h3 class="text-muted">Submit a project</h3>
-        </div>
-          <form method='post' action='/submit' enctype="multipart/form-data">
-            <div class="container-fluid">
-              <div class="row">
-                <div class="col-md-6 col-sm-6 col-xs-12">
+<body>
+  <div class="container">
+    <div class="header">
+      <br>
+      <br>
+      <h3 class="text-muted">Submit a project</h3>
+    </div>
+    <form>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-6 col-sm-6 col-xs-12">
 
           <div class="form-group">
             <label class="control-label requiredField" for="name">
@@ -108,7 +108,7 @@
                 <input type='hidden' class='tag {{ loop.index }}' value='false' name='tag-{{ loop.index }}'>
                 <a href="#/" class="badge badge-pill badge-primary {{ tag.color }} {{ tag.tag }} tag-unclicked" onclick='badgeSubmitted({{ loop.index }})' id="{{ loop.index }}">{{ tag.tag }}  <div class='cross'>&times;</div></a>
                 {% if loop.index % 5 == 0 %}
-                  <br>
+                <br>
                 {% endif %}
                 {%endfor %}
               </div>
