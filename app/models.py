@@ -38,11 +38,27 @@ class Project(db.Model):
         return '<Project (name=%s)>' % (self.name)
         # return '<Project (name=%s, description=%s)>' % (self.name, self.description)
 
-# class Tags(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     tag = db.Column(db.String(100), index=True, unique=False)  # includes events, classes, skills, etc.
+class Tags(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    tag = db.Column(db.String(100), index=True, unique=False)
+    projectID = db.Column(db.Integer, index=True, unique=False)
+    color =  db.Column(db.String(30), index=True, unique=False)
 
-# # How to relate the 2 classes?
-# class ProjectsEvents(db.Model):
-#     project_id = db.Column(db.Integer)
-#     event_id = db.Column(db.Integer)
+    def __init__(self, tag, projectID):
+        tag_colors = {
+            'Python': '#4286f4',
+            'JavaScript': '#00b515',
+            'HTML': '#f94600',
+            'Java': '#ff0061',
+            'CSS': '#8d05ba',
+            'Beginner': '#00e082',
+            'Intermediate': '#d1c300',
+            'Advanced': '#d10000'
+        }
+
+        self.tag = tag
+        self.projectID = projectID
+        if tag in tag_colors:
+            self.color = tag_colors[tag]
+        else:
+            self.color = 'grey'

@@ -4,6 +4,7 @@ from flask_mail import Mail, Message
 # from config import *
 from app import db, app
 from app.models import Project
+from app.models import Tags
 from PIL import Image
 
 from flask_debugtoolbar import DebugToolbarExtension
@@ -86,8 +87,7 @@ def submit():
         if name and screenshot and num_developers and developers and \
             description and long_description and program_attended and email:
             try:
-                # print("!!!!!!!!!!")
-                inserted = db.session.add(Project(name=name,
+                db.session.add(Project(name=name,
                                        screenshot=screenshot,
                                        num_developers=num_developers,
                                        developers=developers,
@@ -101,8 +101,18 @@ def submit():
                                        status="pending",
                                        isDeleted='false'
                                        ))
-                # print("???????")
-                print(inserted.id)
+                db.session.commit()
+                db.session.close()
+
+                query = "SELECT max(id) FROM project;"
+                projectID_row = db.session.execute(query)
+                for row in projectID_row:
+                    projectID = row[0]
+
+                tags_separated = tags.split(',')
+                for tag in tags_separated:
+                    db.session.add(Tags(tag=tag, projectID=projectID))
+
                 db.session.commit()
                 db.session.close()
 
