@@ -16,10 +16,12 @@ class Project(db.Model):
     email = db.Column(db.String(100), index=True, unique=False)
     status = db.Column(db.String(30), index=True, unique=False)
     isDeleted = db.Column(db.String(100), index=True, unique=False)
+    is_featured = db.Column(db.String(5), index=True, unique=False)
+
 
     def __init__(self, name, screenshot, num_developers, developers, \
      github_usernames, description, link, github_repo, long_description, \
-     program_attended, email, status, isDeleted):
+     program_attended, email, status, isDeleted, is_featured):
         self.name = name
         self.screenshot = screenshot
         self.num_developers = num_developers
@@ -33,6 +35,7 @@ class Project(db.Model):
         self.email = email
         self.status = status
         self.isDeleted = isDeleted
+        self.is_featured = is_featured
 
     def __repr__(self):
         return '<Project (name=%s)>' % (self.name)

@@ -37,15 +37,17 @@ FEEDBACK_MAIL_SUBJECT = 'Project Submission Feedback'
 FEEDBACK_MAIL_SENDER = 'melaniensawyer@gmail.com'
 
 NUM_TAGS = 9
+MAX_NUM_FEATURED = 6
 
 @app.route("/")
 def gallery():
-    query = "SELECT name, id, description, developers,screenshot from project WHERE status='approved' AND isDeleted='false';"
+    query = "SELECT name, id, description, developers, screenshot, is_featured from project WHERE status='approved' AND isDeleted='false';"
     result = db.session.execute(query)
 
     allTags = "SELECT DISTINCT tag,color from tags"
     tagsResult = db.session.execute(allTags)
     allItems = []
+    featuredProjects = []
     for item in result:
         d = dict(item.items())
         currID = item['id']
@@ -55,8 +57,10 @@ def gallery():
         for it in result2:
             d['tags'].append(it)
         allItems.append(d)
-    print(allItems)
-    return render_template('gallery.html', data=allItems, tags=tagsResult)
+        if (item['is_featured'] == 'true'):
+            featuredProjects.append(d)
+    # Get most recent MAX_NUM_FEATURED featured projects
+    return render_template('gallery.html', data=allItems, tags=tagsResult, featuredProjects=featuredProjects[-MAX_NUM_FEATURED:])
 
 @app.route("/submit", methods=['GET', 'POST'])
 def submit():
@@ -100,7 +104,8 @@ def submit():
                                        program_attended=program_attended,
                                        email=email,
                                        status="pending",
-                                       isDeleted='false'
+                                       isDeleted='false',
+                                       is_featured='false'
                                        ))
                 db.session.commit()
                 db.session.close()
@@ -199,6 +204,22 @@ def delete():
 def approve():
     myID = request.form['id_to_approve']
     db.session.query(Project).filter(Project.id==myID).update({'status':'approved'})
+    db.session.commit()
+    db.session.close()
+    return(redirect(url_for('admin')))
+
+@app.route('/feature', methods=["POST"])
+def feature():
+    myID = request.form['id_to_feature']
+    db.session.query(Project).filter(Project.id==myID).update({'is_featured': 'true'})
+    db.session.commit()
+    db.session.close()
+    return(redirect(url_for('admin')))
+
+@app.route('/unfeature', methods=["POST"])
+def unfeature():
+    myID = request.form['id_to_unfeature']
+    db.session.query(Project).filter(Project.id==myID).update({'is_featured': 'false'})
     db.session.commit()
     db.session.close()
     return(redirect(url_for('admin')))
