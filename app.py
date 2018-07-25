@@ -123,9 +123,7 @@ def submit():
                                 sender=CONFIRMATION_MAIL_SENDER,
                                 # recipients=[request.form['email']])
                                 recipients=['melanie.sawyer@columbia.edu'])
-                print("Mail!!")
                 mail.send(email)
-                print("mail sent!")
                 return json.dumps({'html':'<span>Project Added</span>'})
             except Exception as e:
                 db.session.rollback()
@@ -167,6 +165,12 @@ def admin():
         return render_template('adminView.html', data=result)
     else:
         return redirect(url_for('login'))
+
+@app.route("/admin/tags", methods=['GET'])
+def tags():
+    query = "SELECT DISTINCT tag,color FROM tags"
+    result = db.session.execute(query)
+    return render_template('tags.html', data=result)
 
 
 # Route for handling the login page logic

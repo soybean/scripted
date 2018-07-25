@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Panel{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+
+<body onload='pageLoad()'>
+  <div class='container'>
+    <div class='admin-container'>
+      <h3 class="display-4">Tags</h3>
+      <br>
+      <br>
+      <table class="table table-striped table-hover" id='adminTable'>
+        <thead>
+          <tr>
+            <th scope="col">Tag</th>
+            <th scope="col">Color</th>
+            <th scope="col"># of associated projects</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in data %}
+          <tr>
+                <th scope="row">{{ item.tag}}</th>
+                <td><span class='badge badge-pill badge-success'>{{ item.tag}}</span></td>
+                <td>{{ tag.color }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</body>
+{% endblock %}
+
+{% block script %}
+  <script src='../static/js/index.js'></script>
+{% endblock %}

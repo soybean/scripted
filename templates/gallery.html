@@ -4,28 +4,49 @@
 
 {% block content %}
   <body>
-	  <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
-  <strong>Submitted!</strong> You'll receive an email when your project is approved.
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
+    <!--<div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+      <strong>Submitted!</strong> You'll receive an email when your project is approved.
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>-->
     <div class='container'>
       <div class='row'>
         <div class='featured-container'>
-          <h6 class='display-4 section-title'>Project Gallery</h6>
+          <h6 class='display-4'>Project Gallery</h6>
         </div>
       </div>
       <div class='filter-container'>
         <div class='card'>
           <div class='card-body'>
+            <div class='row'>
+            <div class='col-md-4'>
             <p><small>Filter by tags</small></p>
             {% for tag in tags %}
             <a href="#/" class="badge badge-pill badge-primary {{ tag.color }} {{ tag.tag }} tag-unclicked" onclick='badgeClicked({{ loop.index }})' id="{{ loop.index }}">{{ tag.tag }}  <div class='cross'>&times;</div></a>
-            {% if loop.index % 3 == 0 %}
+            {% if loop.index % 4 == 0 %}
               <br>
             {% endif %}
             {%endfor %}
+            </div>
+            <div class='col-md-4'>
+              <p><small>Search by project name or developer name</small></p>
+              <input type="email" class="form-control" id="lgFormGroupInput" placeholder="search"> 
+            </div>
+            <div class='col-md-4'>
+              <p><small>Sort projects</small></p>
+              <div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style='background-color:#fff;color:#6c757d;border:1px solid #ced4da'>
+    Sort projects by...
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="#">Most recent</a>
+    <a class="dropdown-item" href="#">Oldest</a>
+    <a class="dropdown-item" href="#">Most popular</a>
+  </div>
+</div>
+            </div>
+            </div>
           </div>
         </div>
         <section class='cards'>
