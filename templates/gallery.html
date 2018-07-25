@@ -13,44 +13,10 @@
     <div class='container'>
       <div class='row'>
         <div class='featured-container'>
-          <h6 class='display-4'>Project Gallery</h6>
+          <h6 class='display-4'>Gallery</h6>
         </div>
       </div>
 
-      <!-- Tags -->
-      <div class='filter-container'>
-        <div class='card bottom-margin-small'>
-          <div class='card-body'>
-            <div class='row'>
-            <div class='col-md-4'>
-            <p><small>Filter by tags</small></p>
-            {% for tag in tags %}
-            <a href="#/" class="badge badge-pill badge-primary {{ tag.color }} {{ tag.tag }} tag-unclicked" onclick='badgeClicked({{ loop.index }})' id="{{ loop.index }}">{{ tag.tag }}  <div class='cross'>&times;</div></a>
-            {% if loop.index % 4 == 0 %}
-              <br>
-            {% endif %}
-            {%endfor %}
-            </div>
-            <div class='col-md-4'>
-              <p><small>Search by project name or developer name</small></p>
-              <input type="email" class="form-control" id="lgFormGroupInput" placeholder="search"> 
-            </div>
-            <div class='col-md-4'>
-              <p><small>Sort projects</small></p>
-              <div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style='background-color:#fff;color:#6c757d;border:1px solid #ced4da'>
-    Sort projects by...
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item" href="#">Most recent</a>
-    <a class="dropdown-item" href="#">Oldest</a>
-    <a class="dropdown-item" href="#">Most popular</a>
-  </div>
-</div>
-            </div>
-            </div>
-          </div>
-        </div>
 
         <!-- Featured Projects -->
         <div>
@@ -78,11 +44,48 @@
           {% endfor %}
         </div>
 
+
+
         <!-- All Projects -->
         <section class='cards'>
           <div>
             <h7 class='display-4 section-title'>All Projects</h6>
           </div>
+
+      <!-- Tags -->
+      <div class='filter-container'>
+        <div class='card bottom-margin-small'>
+          <div class='card-body'>
+            <div class='row'>
+            <div class='col-md-4'>
+            <p><small>Filter by tags</small></p>
+            {% for tag in tags %}
+            <a href="#/" class="badge badge-pill badge-primary {{ tag.color }} {{ tag.tag }} tag-unclicked" onclick='badgeClicked({{ loop.index }})' id="{{ loop.index }}">{{ tag.tag }}  <div class='cross'>&times;</div></a>
+            {% if loop.index % 4 == 0 %}
+              <br>
+            {% endif %}
+            {%endfor %}
+            </div>
+            <div class='col-md-4'>
+              <p><small>Search by project name or developer name</small></p>
+              <input type="email" class="form-control" id="lgFormGroupInput" placeholder="search"> 
+            </div>
+            <div class='col-md-4'>
+              <p><small>Sort projects</small></p>
+              <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style='background-color:#fff;color:#6c757d;border:1px solid #ced4da'>
+                  Sort projects by...
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="#">Most recent</a>
+                  <a class="dropdown-item" href="#">Oldest</a>
+                  <a class="dropdown-item" href="#">Most popular</a>
+                </div>
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
           <div class='card-deck bottom-margin-large'>
             {% for project in data %}
             	<div class="card shadow project
