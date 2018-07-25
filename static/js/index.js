@@ -178,10 +178,17 @@ function rejectRows(rowNumber) {
     }
 }
 
+function featureRows(rowNumber) {
+    var tr = document.getElementById('adminTable')
+        .getElementsByTagName('tr')[rowNumber];
+    tr.classList.toggle('table-secondary');
+}
+
 function checkboxAction() {
     var pending = document.getElementById('pending-checkbox').checked;
     var approved = document.getElementById('approved-checkbox').checked;
     var submitted = document.getElementById('feedback-checkbox').checked;
+    var featured = document.getElementById('featured-checkbox').checked;
     if (pending) {
         var pendingItems = document.getElementsByClassName('pending');
         var i;
@@ -222,6 +229,20 @@ function checkboxAction() {
         var i;
         for (i=0; i < submittedItems.length; i++) {
             submittedItems[i].style.display = 'none';
+        }
+    }
+    if (featured) {
+        var featuredItems = document.getElementsByClassName('featured');
+        var i;
+        for (i=0; i < featuredItems.length; i++) {
+            featuredItems[i].style.display = null;
+        }
+    }
+    else if (!featured) {
+        var featuredItems = document.getElementsByClassName('featured');
+        var i;
+        for (i=0; i < featuredItems.length; i++) {
+            featuredItems[i].style.display = 'none';
         }
     }
 }

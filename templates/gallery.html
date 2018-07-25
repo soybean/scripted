@@ -5,19 +5,21 @@
 {% block content %}
   <body>
 	  <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
-  <strong>Submitted!</strong> You'll receive an email when your project is approved.
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
+      <strong>Submitted!</strong> You'll receive an email when your project is approved.
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
     <div class='container'>
       <div class='row'>
         <div class='featured-container'>
           <h6 class='display-4 section-title'>Project Gallery</h6>
         </div>
       </div>
+
+      <!-- Tags -->
       <div class='filter-container'>
-        <div class='card'>
+        <div class='card bottom-margin-small'>
           <div class='card-body'>
             <p><small>Filter by tags</small></p>
             {% for tag in tags %}
@@ -28,30 +30,63 @@
             {%endfor %}
           </div>
         </div>
-        <section class='cards'>
-        <div class='card-deck'>
-          {% for project in data %}
-          	<div class="card shadow project
+
+        <!-- Featured Projects -->
+        <div>
+          <h7 class='display-4 section-title'>Featured Projects</h6>
+        </div>
+        <div class='card-deck bottom-margin-medium'>
+          {% for project in featuredProjects %}
+            <div class="card shadow project
                     {% for tag in project['tags'] %}
                       {{ tag.tag }}
                     {% endfor %}
                     ">
-			<a class='no-deco' href='/project/{{ project['id'] }}'>
-			<img class="card-img-top" src="{{ project.screenshot }}" onerror='makeDefaultImage(this)' width='600px' height='250px'>
-              <div class="card-body">
-                <h5 class="card-title">{{ project['name'] }} </h5>
-		<small class='text-muted'>{{ project['developers'] }}</small>
-		<p class="card-text">{{ project['description'] }}</p>
-                {% for tag in project['tags'] %}
-                  <a href='#/' class="badge badge-pill badge-info {{ tag.tag }}" style='background-color: {{ tag.color }} !important;'>{{ tag.tag }}</a>
-                {% endfor %}
+              <a class='no-deco' href='/project/{{ project['id'] }}'>
+                <img class="card-img-top" src="{{ project.screenshot }}" onerror='makeDefaultImage(this)' width='600px' height='250px'>
+                <div class="card-body">
+                  <h5 class="card-title">{{ project['name'] }} </h5>
+                  <small class='text-muted'>{{ project['developers'] }}</small>
+                  <p class="card-text">{{ project['description'] }}</p>
+                  {% for tag in project['tags'] %}
+                    <a href='#/' class="badge badge-pill badge-info {{ tag.tag }}" style='background-color: {{ tag.color }} !important;'>{{ tag.tag }}</a>
+                  {% endfor %}
+                </div>
               </div>
-            </div>
-			</a>
-  	      {% endfor %}
+            </a>
+          {% endfor %}
         </div>
+
+        <!-- All Projects -->
+        <section class='cards'>
+          <div>
+            <h7 class='display-4 section-title'>All Projects</h6>
+          </div>
+          <div class='card-deck bottom-margin-large'>
+            {% for project in data %}
+            	<div class="card shadow project
+                {% for tag in project['tags'] %}
+                  {{ tag.tag }}
+                {% endfor %}
+              ">
+                <a class='no-deco' href='/project/{{ project['id'] }}'>
+  		            <img class="card-img-top" src="{{ project.screenshot }}" onerror='makeDefaultImage(this)' width='600px' height='250px'>
+                  <div class="card-body">
+                    <h5 class="card-title">{{ project['name'] }} </h5>
+  	                <small class='text-muted'>{{ project['developers'] }}</small>
+  		              <p class="card-text">{{ project['description'] }}</p>
+                    {% for tag in project['tags'] %}
+                      <a href='#/' class="badge badge-pill badge-info {{ tag.tag }}" style='background-color: {{ tag.color }} !important;'>{{ tag.tag }}</a>
+                    {% endfor %}
+                  </div>
+                </div>
+              </a>
+    	      {% endfor %}
+          </div>
+        </section>
+
       </div>
-    </section>
+    </div>
   </body>
 {% endblock %}
 
