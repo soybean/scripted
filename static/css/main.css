@@ -1,3 +1,11 @@
+* {
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+}
+
+a {
+    color: #0080ff;
+}
+
 #nav-panel {
     background-color: #0080ff;
     height: 85px;
@@ -5,14 +13,15 @@
 }
 
 #nav-img {
-  filter: invert(1);
-  margin-left: 80px;
-  margin-top: 24px;
+    filter: invert(1);
+    margin-left: 80px;
+    margin-top: 24px;
 }
 
 .card-img-top {
     width: 100%;
 }
+
 .row {
     margin-top: 15px;
     margin-bottom: 15px;
@@ -40,11 +49,11 @@ h3 {
 }
 
 .submit-button {
-  border: 2px solid;
-  font-weight:800;
-  float:right;
-  margin-right: 88.5px;
-  margin-top: 22px;
+    border: 2px solid;
+    font-weight: 800;
+    float: right;
+    margin-right: 88.5px;
+    margin-top: 22px;
 }
 
 .button {
@@ -135,15 +144,15 @@ body {
 }
 
 .bottom-margin-small {
-  margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 .bottom-margin-medium {
-  margin-bottom: 40px;
+    margin-bottom: 40px;
 }
 
 .bottom-margin-large {
-  margin-bottom: 100px;
+    margin-bottom: 100px;
 }
 
 
@@ -194,24 +203,45 @@ body {
 }
 
 a.no-deco {
-  color:inherit;
-  text-decoration:none;
+    color: inherit;
+    text-decoration: none;
 }
 
 a.deco-none:link {
-  color: inherit;
-  text-decoration: inherit;
+    color: inherit;
+    text-decoration: inherit;
 }
 
 a.deco-none:hover {
-  color: inherit;
-  text-decoration: inherit;
+    color: inherit;
+    text-decoration: inherit;
 }
 
 a.github-user {
-  color: #17d3ff;
+    color: #17d3ff;
 }
 
 .round-img {
-  border-radius:50%;
+    border-radius: 50%;
+}
+
+/* Project Page Styles */
+
+.project-title {
+    font-size: 28pt;
+}
+
+.project-description,
+.project-tagline {
+    font-size: 14.3pt;
+}
+
+.developers {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.project-developer {
+    font-size: 11pt;
 }
