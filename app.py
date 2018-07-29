@@ -185,7 +185,6 @@ def tags():
         result = db.session.execute(query)
         return render_template('tags.html', data=result)
     elif request.method == 'POST':
-        print ("hayy")
         print (request.form)
         tag = request.form['tag']
         projectID = -1
@@ -201,6 +200,15 @@ def tags():
             return json.dumps({'html':'<span>Tag Added</span>'})
         else:
             return json.dumps({'html':'<span>Enter the required fields</span>'})
+
+@app.route('/delete_tag', methods=["POST"])
+def delete_tag():
+    tag = request.form['tag_to_delete']
+    query = "DELETE FROM tags WHERE tag='" + tag + "'"
+    db.session.execute(query)
+    db.session.commit()
+    db.session.close()
+    return(redirect(url_for('tags')))
 
 # Route for handling the login page logic
 @app.route('/login', methods=['GET', 'POST'])
