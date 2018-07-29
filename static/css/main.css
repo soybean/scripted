@@ -245,3 +245,20 @@ a.github-user {
 .project-developer {
     font-size: 11pt;
 }
+
+/* Admin tags page */
+
+.header-container {
+  display: flex;
+}
+
+.tags-title {
+  display: inline;
+  font-size: 50px;
+}
+
+.add-tag-button {
+  display: inline;
+  margin-left: 14px;
+  font-size: 22px;
+}

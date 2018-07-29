@@ -47,21 +47,22 @@ class Tags(db.Model):
     projectID = db.Column(db.Integer, index=True, unique=False)
     color =  db.Column(db.String(30), index=True, unique=False)
 
-    def __init__(self, tag, projectID):
-        tag_colors = {
-            'Python': '#4286f4',
-            'JavaScript': '#00b515',
-            'HTML': '#f94600',
-            'Java': '#ff0061',
-            'CSS': '#8d05ba',
-            'Beginner': '#00e082',
-            'Intermediate': '#d1c300',
-            'Advanced': '#d10000'
-        }
+    def __init__(self, tag, projectID, color):
+        # tag_colors = {
+        #     'Python': '#4286f4',
+        #     'JavaScript': '#00b515',
+        #     'HTML': '#f94600',
+        #     'Java': '#ff0061',
+        #     'CSS': '#8d05ba',
+        #     'Beginner': '#00e082',
+        #     'Intermediate': '#d1c300',
+        #     'Advanced': '#d10000'
+        # }
 
         self.tag = tag
         self.projectID = projectID
-        if tag in tag_colors:
-            self.color = tag_colors[tag]
-        else:
-            self.color = 'grey'
+        self.color = color
+        # if tag in tag_colors:
+        #     self.color = tag_colors[tag]
+        # else:
+        #     self.color = 'grey'
