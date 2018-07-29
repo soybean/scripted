@@ -5,10 +5,50 @@
 {% block content %}
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 
-<body onload='pageLoad()'>
+<body>
   <div class='container'>
     <div class='admin-container'>
-      <h3 class="display-4">Tags</h3>
+      <div class='header-container'>
+        <h3 class="display-4 tags-title">Tags</h3>
+
+        <!-- Trigger the modal with a button -->
+        <button type="button" class="btn btn-info btn-lg add-tag-button" data-toggle="modal" data-target="#add-tag-modal">Add Tag</button>
+
+        <div id="add-tag-modal" class="modal" tabindex="-1" role="dialog">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Add a tag</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="form-group">
+                    <label class="control-label requiredField" for="tag">
+                      Tag name
+                      <span class="asteriskField">*</span>
+                    </label>
+                    <input class="form-control" id="tag" name="tag" type="text" />
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label requiredField" for="color">
+                      Color
+                      <span class="asteriskField">*</span>
+                    </label>
+                    <input class="form-control" id="color" name="color" type="text" />
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button name="submit" type="submit" id="add_tag_btn_submit" class="btn btn-primary">Add</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <br>
       <br>
       <table class="table table-striped table-hover" id='adminTable'>
@@ -17,14 +57,16 @@
             <th scope="col">Tag</th>
             <th scope="col">Color</th>
             <th scope="col"># of associated projects</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
           {% for item in data %}
           <tr>
-                <th scope="row">{{ item.tag}}</th>
-                <td><span class='badge badge-pill badge-success'>{{ item.tag}}</span></td>
-                <td>{{ tag.color }}</td>
+            <th scope="row">{{ item.tag}}</th>
+            <td><span class='badge badge-pill badge-success' style="background:{{item.color}}">{{ item.tag}}</span></td>
+            <td>count</td>
+            <td><button type='submit' class='btn btn-outline-danger btn-sm' onclick="deleteRow({{ loop.index }})"> <i class='fa fa-trash'></i></button></td>
           </tr>
           {% endfor %}
         </tbody>
@@ -36,5 +78,6 @@
 {% endblock %}
 
 {% block script %}
-  <script src='../static/js/index.js'></script>
+  <script src='../static/js/index.js'>
+  </script>
 {% endblock %}

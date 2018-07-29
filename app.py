@@ -66,12 +66,13 @@ def gallery():
 def submit():
     if request.method == 'POST':
         name = request.form['name']
+        screenshot = ''
         if 'screenshot' in request.files:
             f = request.files['screenshot']
             img = Image.open(f)
             path = "static/img/" + f.filename
             img.save(path)
-        screenshot = "static/img/" + f.filename
+            screenshot = "static/img/" + f.filename
         num_developers = request.form['num_developers']
         developers = request.form['developers']
         github_usernames = request.form['github_usernames']
@@ -91,6 +92,7 @@ def submit():
                 #db.session.close()
         if name and screenshot and num_developers and developers and \
             description and long_description and program_attended and email:
+            print (request.form)
             try:
                 db.session.add(Project(name=name,
                                        screenshot=screenshot,
@@ -117,7 +119,11 @@ def submit():
 
                 tags_separated = tags.split(',')
                 for tag in tags_separated:
-                    db.session.add(Tags(tag=tag, projectID=projectID))
+                    query_color = "SELECT DISTINCT color FROM tags WHERE tag='" + tag + "';"
+                    color_rows = db.session.execute(query_color)
+                    for row in color_rows:
+                        color = row[0]
+                    db.session.add(Tags(tag=tag, color=color, projectID=projectID))
 
                 db.session.commit()
                 db.session.close()
@@ -171,12 +177,29 @@ def admin():
     else:
         return redirect(url_for('login'))
 
-@app.route("/admin/tags", methods=['GET'])
+@app.route("/admin/tags", methods=['GET', 'POST'])
 def tags():
-    query = "SELECT DISTINCT tag,color FROM tags"
-    result = db.session.execute(query)
-    return render_template('tags.html', data=result)
+    if request.method == 'GET':
+        query = "SELECT DISTINCT tag,color FROM tags"
+        result = db.session.execute(query)
+        return render_template('tags.html', data=result)
+    elif request.method == 'POST':
+        print ("hayy")
+        print (request.form)
+        tag = request.form['tag']
+        projectID = -1
+        color = request.form['color']
 
+        if tag and color:
+            db.session.add(Tags(tag=tag,
+                                projectID=projectID,
+                                color=color
+                                ))
+            db.session.commit()
+            db.session.close()
+            return json.dumps({'html':'<span>Tag Added</span>'})
+        else:
+            return json.dumps({'html':'<span>Enter the required fields</span>'})
 
 # Route for handling the login page logic
 @app.route('/login', methods=['GET', 'POST'])
@@ -189,8 +212,6 @@ def login():
             session['user']='admin'
             return redirect(url_for('admin'))
     return render_template('login.html', error=error)
-
-
 
 @app.route('/delete', methods=["POST"])
 def delete():
@@ -263,7 +284,6 @@ def draft(id):
     for item in tagsResult:
         d['tags'].append(item)
     return(render_template('project2.html', data=d))
-
 
 if __name__ == "__main__":
     app.run(debug=True)

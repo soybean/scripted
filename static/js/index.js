@@ -139,6 +139,25 @@ $(function() {
     });
 });
 
+$(function() {
+    $('#add_tag_btn_submit').click(function() {
+        var form_data = new FormData($('form')[0]);
+        $.ajax({
+            url: '/admin/tags',
+            type: 'POST',
+            data: form_data,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                console.log(response);
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    });
+});
+
 function parseDevNames(names, githubs) {
     var nameList = names.split(',');
     var githubList = githubs.split(',');
