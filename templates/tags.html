@@ -65,7 +65,7 @@
           <tr>
             <th scope="row">{{ item.tag}}</th>
             <td><span class='badge badge-pill badge-success' style="background:{{item.color}}">{{ item.tag}}</span></td>
-            <td>count</td>
+            <td>{{item[1]-1}}</td>
             <td><button type='submit' class='btn btn-outline-danger btn-sm' onclick="deleteRow({{ loop.index }})"> <i class='fa fa-trash'></i></button></td>
           </tr>
           {% endfor %}

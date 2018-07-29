@@ -180,7 +180,8 @@ def admin():
 @app.route("/admin/tags", methods=['GET', 'POST'])
 def tags():
     if request.method == 'GET':
-        query = "SELECT DISTINCT tag,color FROM tags"
+        # query = "SELECT DISTINCT tag,color FROM tags GROUP BY tag"
+        query = "SELECT tag, COUNT(*), color FROM tags GROUP BY tag"
         result = db.session.execute(query)
         return render_template('tags.html', data=result)
     elif request.method == 'POST':
