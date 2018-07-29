@@ -246,6 +246,13 @@ a.github-user {
     font-size: 11pt;
 }
 
+/* Admin page */
+
+.admin-header-container {
+  display: flex;
+  justify-content: space-between;
+}
+
 /* Admin tags page */
 
 .header-container {
