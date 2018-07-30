@@ -24,7 +24,7 @@
         </div>
         <div class='card-deck bottom-margin-medium'>
           {% for project in featuredProjects %}
-            <div class="card shadow project
+            <div class="card shadow project-featured
                     {% for tag in project['tags'] %}
                       {{ tag.tag }}
                     {% endfor %}
@@ -67,8 +67,10 @@
             {%endfor %}
             </div>
             <div class='col-md-4'>
-              <p><small>Search by project name or developer name</small></p>
-              <input type="email" class="form-control" id="lgFormGroupInput" placeholder="search"> 
+              <form action="/">
+                <p><small>Search by project name or developer name</small></p>
+                <input type="text" name="searchBy" class="form-control" id="searchInput" placeholder="Search">
+              </form>
             </div>
             <div class='col-md-4'>
               <p><small>Sort projects</small></p>
@@ -77,9 +79,9 @@
                   Sort projects by...
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="#">Most recent</a>
-                  <a class="dropdown-item" href="#">Oldest</a>
-                  <a class="dropdown-item" href="#">Most popular</a>
+                  <a class="dropdown-item sort-by-clicked" href="/?sortBy=mostRecent">Most recent</a>
+                  <a class="dropdown-item sort-by-unclicked" href="/?sortBy=leastRecent">Least recent</a>
+                  <a class="dropdown-item sort-by-unclicked" href="/?sortBy=projectName">Project Name</a>
                 </div>
               </div>
             </div>

@@ -48,6 +48,8 @@ def gallery():
     tagsResult = db.session.execute(allTags)
     allItems = []
     featuredProjects = []
+    searchBy = request.args.get('searchBy')
+    sortBy = request.args.get('sortBy')
     for item in result:
         d = dict(item.items())
         currID = item['id']
@@ -56,11 +58,22 @@ def gallery():
         d['tags'] = []
         for it in result2:
             d['tags'].append(it)
-        allItems.append(d)
+        if searchBy:
+            if searchBy.lower() in d['name'].lower() or searchBy.lower() in d['developers'].lower():
+                allItems.append(d)
+        else:
+            allItems.append(d)
         if (item['is_featured'] == 'true'):
             featuredProjects.append(d)
-    # Get most recent MAX_NUM_FEATURED featured projects
-    return render_template('gallery.html', data=allItems, tags=tagsResult, featuredProjects=featuredProjects[-MAX_NUM_FEATURED:])
+    if sortBy == 'projectName':
+        allItems.sort(key = lambda project: project['name'].lower())
+    elif sortBy == 'leastRecent':
+        allItems.sort(key = lambda project: project['id'])
+    else:  # Most recent by default
+        allItems.sort(key = lambda project: project['id'], reverse=True)
+    return render_template('gallery.html', data=allItems, tags=tagsResult, \
+        featuredProjects=featuredProjects[-MAX_NUM_FEATURED:])
+        # Get most recent MAX_NUM_FEATURED featured projects
 
 @app.route("/submit", methods=['GET', 'POST'])
 def submit():
