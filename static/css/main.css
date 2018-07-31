@@ -274,3 +274,7 @@ a.github-user {
   margin-left: 14px;
   font-size: 22px;
 }
+
+.inline-form {
+  display: inline;
+}
