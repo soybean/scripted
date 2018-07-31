@@ -1,9 +1,14 @@
-* {
+/** {
     font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
 }
+*/
 
 a {
     color: #0080ff;
+}
+
+a:hover {
+    text-decoration:none;
 }
 
 #nav-panel {

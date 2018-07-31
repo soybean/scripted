@@ -243,9 +243,12 @@ def delete():
     db.session.close()
     return(redirect(url_for('admin')))
 
-@app.route('/approve', methods=['POST'])
+@app.route('/approve', methods=['POST', 'GET'])
 def approve():
-    myID = request.form['id_to_approve']
+    if request.method == 'GET':
+        myID = request.args.get('id') 
+    else:
+        myID = request.form['id_to_approve']
     db.session.query(Project).filter(Project.id==myID).update({'status':'approved'})
     db.session.commit()
     db.session.close()
@@ -287,7 +290,7 @@ def project(id):
     d['tags']=[]
     for item in tagsResult:
         d['tags'].append(item)
-    return(render_template('project2.html', data=d))
+    return(render_template('project2.html', data=d, isdraft="false"))
 
 @app.errorhandler(404)
 def page_not_found(e):
@@ -305,7 +308,7 @@ def draft(id):
     d['tags']=[]
     for item in tagsResult:
         d['tags'].append(item)
-    return(render_template('project2.html', data=d))
+    return(render_template('project2.html', data=d, isdraft="true"))
 
 @app.route("/test", methods=['GET'])
 def test():
