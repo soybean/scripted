@@ -37,7 +37,7 @@ FEEDBACK_MAIL_SUBJECT = 'Project Submission Feedback'
 FEEDBACK_MAIL_SENDER = 'melaniensawyer@gmail.com'
 
 NUM_TAGS = 9
-MAX_NUM_FEATURED = 6
+MAX_NUM_FEATURED = 3
 
 @app.route("/")
 def gallery():
@@ -48,7 +48,6 @@ def gallery():
     tagsResult = db.session.execute(allTags)
     allItems = []
     featuredProjects = []
-    searchBy = request.args.get('searchBy')
     sortBy = request.args.get('sortBy')
     for item in result:
         d = dict(item.items())
@@ -58,11 +57,7 @@ def gallery():
         d['tags'] = []
         for it in result2:
             d['tags'].append(it)
-        if searchBy:
-            if searchBy.lower() in d['name'].lower() or searchBy.lower() in d['developers'].lower():
-                allItems.append(d)
-        else:
-            allItems.append(d)
+        allItems.append(d)
         if (item['is_featured'] == 'true'):
             featuredProjects.append(d)
     if sortBy == 'projectName':
@@ -246,7 +241,7 @@ def delete():
 @app.route('/approve', methods=['POST', 'GET'])
 def approve():
     if request.method == 'GET':
-        myID = request.args.get('id') 
+        myID = request.args.get('id')
     else:
         myID = request.form['id_to_approve']
     db.session.query(Project).filter(Project.id==myID).update({'status':'approved'})

@@ -83,17 +83,17 @@
                 <td>{{ item.developers}} </td>
                 <td class='actions'>
                   {% if item.status=='approved' %}
-                  <form action='/delete' method='post'>
+                  <form action='/delete' method='post' class='inline-form'>
                     <input type=hidden value="{{ item.id }}"name="id_to_delete"></input>
                     <button type='submit' class='btn btn-outline-danger btn-sm' onclick="deleteRow({{ loop.index }})"> <i class='fa fa-trash'></i>  Delete project</button>
                   </form>
-                  {% if item.is_featured=='false' %}
-                  <form action='/feature' method='post'>
-                    <input type=hidden value="{{ item.id }}"name="id_to_feature"></input>
+                    {% if item.is_featured=='false' %}
+                    <form action='/feature' method='post' class='inline-form'>
+                      <input type=hidden value="{{ item.id }}"name="id_to_feature"></input>
                       <button type='submit' class='btn btn-outline-secondary btn-sm' onclick="featureRows({{ loop.index }})"> <i class='fa fa-star'></i>  Make featured</button>
                     </form>
                     {% elif item.is_featured=='true' %}
-                    <form action='/unfeature' method='post'>
+                    <form action='/unfeature' method='post' class='inline-form'>
                       <input type=hidden value="{{ item.id }}"name="id_to_unfeature"></input>
                       <button type='submit' class='btn btn-outline-secondary btn-sm' onclick="featureRows({{ loop.index }})"> <i class='fa fa-star'></i>  Un-feature</button>
                     </form>
