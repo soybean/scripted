@@ -8,9 +8,9 @@
     <div class="header">
       <br>
       <br>
-      <h3 class="text-muted">Submit a project</h3>
+      <h6 class="display-4">Submit a project</h6>
     </div>
-    <form>
+    <form class='needs-validation' novalidate>
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-6 col-sm-6 col-xs-12">
@@ -20,11 +20,14 @@
               Project Name
               <span class="asteriskField">*</span>
             </label>
-            <input class="form-control" id="name" name="name" type="text" />
+            <input class="form-control" id="name" name="name" type="text" required />
+            <div class='invalid-feedback'>
+              Please provide a project name.
+            </div>
           </div>
 
           <div class="form-group">
-            <label class="control-label requiredField" for="text">
+            <label class="control-label requiredField" for="text" required>
               Screenshots
               <span class="asteriskField">*</span>
             </label>
@@ -32,6 +35,9 @@
             <span class="help-block" id="hint_text">
               Please upload at least one image
             </span>
+            <div class='invalid-feedback'>
+              Please upload at least one image
+            </div>
           </div>
 
           <div class="form-group">
@@ -153,5 +159,25 @@
 
 {% block script %}
   <script src='../static/js/index.js'>
+  </script>
+
+  <script>
+    (function() {
+      'use strict';
+      window.addEventListener('load', function() {
+        var forms = document.getElementsByClassName('needs-validation');
+        var validation = Array.prototype.filter.call(forms, function(form) {
+          form.addEventListener('submit', function(event) {
+            if (form.checkValidity() == false) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+          }, false);
+        });
+      }, false);
+    })();
+  </script>
+
   </script>
 {% endblock %}

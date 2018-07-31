@@ -57,23 +57,28 @@
         <tbody>
           {% for item in data %}
           <tr
-                {% if item.status=="approved" %} class='approved clickable-row {{ item.id }}'
-                {% elif item.status=='submitted' %} class='submitted clickable-row {{ item.id }}'
-                {% else %} class='pending clickable-row {{ item.id }}'
+                {% if item.status=="approved" %} class='approved {{ item.id }}'
+                {% elif item.status=='submitted' %} class='submitted {{ item.id }}'
+                {% else %} class='pending {{ item.id }}'
                 {% endif %}
                 >
                 <th scope="row">{{ item.id }}</th>
-                <td>{{ item.name }}
-                  {% if item.status == "approved" %}
-                  <span class="badge badge-pill badge-success">Approved</span>
-                    {% if item.is_featured == "true" %}
-                    <span class="badge badge-pill badge-secondary">Featured</span>
-                    {% endif %}
-                  {% elif item.status == 'pending' %}
-                  <span class="badge badge-pill badge-danger">Pending</span>
-                  {% else %}
-                  <span class="badge badge-pill badge-warning">Feedback sent</span>
-                  {% endif %}
+                <td>
+                {% if item.status == "approved" %}
+                <a href='/project/{{ item.id }}'> {{ item.name }} </a>
+                {% else %}
+                <a href='/draft/{{ item.id }}'> {{ item.name }} </a>
+                {% endif %}
+                {% if item.status == "approved" %}
+                <span class="badge badge-pill badge-success">Approved</span>
+                {% if item.is_featured == "true" %}
+                <span class="badge badge-pill badge-secondary">Featured</span>
+                {% endif %}
+                {% elif item.status == 'pending' %}
+                <span class="badge badge-pill badge-danger">Pending</span>
+                {% else %}
+                <span class="badge badge-pill badge-warning">Feedback sent</span>
+                {% endif %}
                 </td>
                 <td>{{ item.developers}} </td>
                 <td class='actions'>
@@ -82,9 +87,9 @@
                     <input type=hidden value="{{ item.id }}"name="id_to_delete"></input>
                     <button type='submit' class='btn btn-outline-danger btn-sm' onclick="deleteRow({{ loop.index }})"> <i class='fa fa-trash'></i>  Delete project</button>
                   </form>
-                    {% if item.is_featured=='false' %}
-                    <form action='/feature' method='post'>
-                      <input type=hidden value="{{ item.id }}"name="id_to_feature"></input>
+                  {% if item.is_featured=='false' %}
+                  <form action='/feature' method='post'>
+                    <input type=hidden value="{{ item.id }}"name="id_to_feature"></input>
                       <button type='submit' class='btn btn-outline-secondary btn-sm' onclick="featureRows({{ loop.index }})"> <i class='fa fa-star'></i>  Make featured</button>
                     </form>
                     {% elif item.is_featured=='true' %}

@@ -307,5 +307,9 @@ def draft(id):
         d['tags'].append(item)
     return(render_template('project2.html', data=d))
 
+@app.route("/test", methods=['GET'])
+def test():
+    return(render_template("test.html"))
+
 if __name__ == "__main__":
     app.run(debug=True)
