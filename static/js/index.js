@@ -287,3 +287,21 @@ $('.clickable-row').click(function() {
     console.log(document.getElementById('draft-alert'));
     document.getElementById('draft-alert').style.display ='block';
 });
+
+var searchBar = document.getElementById("searchBar");
+searchBar.addEventListener("input", searchBy, false);
+
+function searchBy() {
+  const text = searchBar.value.toLowerCase();
+  var allProjects = document.getElementsByClassName('project');
+  for (var i = 0; i < allProjects.length; i++) {
+    const projectName = allProjects[i].getElementsByClassName('card-title')[0].textContent;
+    const projectDevelopers = allProjects[i].getElementsByClassName('text-muted')[0].textContent;
+    if (projectName.toLowerCase().indexOf(text) >= 0 ||
+        projectDevelopers.toLowerCase().indexOf(text) >= 0) {
+      allProjects[i].classList.remove('d-none');
+    } else {
+      allProjects[i].classList.add('d-none');
+    }
+  }
+}
