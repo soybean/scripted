@@ -103,7 +103,13 @@ function badgeClicked(num) {
 
         }
     }
-
+    const numProjects = document.getElementsByClassName('project').length;
+    const numProjectsHidden = document.getElementsByClassName('d-none').length;
+    if (numProjects - numProjectsHidden === 0) {
+      document.getElementById('no-projects').classList.remove('hidden');
+    } else {
+      document.getElementById('no-projects').classList.add('hidden');
+    }
 }
 
 /*document.getElementById("num_developers").onchange = function()
