@@ -8,7 +8,7 @@ a {
 }
 
 a:hover {
-    text-decoration:none;
+    text-decoration: none;
 }
 
 #nav-panel {
@@ -254,25 +254,31 @@ a.github-user {
 /* Admin page */
 
 .admin-header-container {
-  display: flex;
-  justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
 }
 
 /* Admin tags page */
 
 .header-container {
-  display: flex;
+    display: flex;
 }
 
 .tags-title {
-  display: inline;
-  font-size: 50px;
+    display: inline;
+    font-size: 50px;
 }
 
 .add-tag-button {
-  display: inline;
-  margin-left: 14px;
-  font-size: 22px;
+    display: inline;
+    margin-left: 14px;
+    font-size: 22px;
+}
+
+/* Extra small devices (phones, 600px and down) */
+
+@media only screen and (max-width: 600px) {
+    text-align: center;
 }
 
 .inline-form {
