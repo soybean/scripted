@@ -130,8 +130,8 @@ body {
 }
 
 .cards {
-    display: flex;
-    flex-wrap: wrap;
+    /* display: flex; */
+    /* flex-wrap: wrap; */
 }
 
 .card {
@@ -277,4 +277,18 @@ a.github-user {
 
 .inline-form {
   display: inline;
+}
+
+.filter-container {
+  flex: auto;
+}
+
+.no-projects-box {
+  flex: auto;
+  text-align: center;
+  width: 100%;
+}
+
+.hidden {
+  display: none;
 }
