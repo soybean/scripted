@@ -289,7 +289,9 @@ $('.clickable-row').click(function() {
 });
 
 var searchBar = document.getElementById("searchBar");
-searchBar.addEventListener("input", searchBy, false);
+if (searchBar) {
+  searchBar.addEventListener("input", searchBy, false);
+}
 
 function searchBy() {
   const text = searchBar.value.toLowerCase();
