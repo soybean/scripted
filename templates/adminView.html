@@ -6,6 +6,15 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 
 <body onload='pageLoad()'>
+  {% if errorMessage %}
+	  <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+      <strong>Error</strong> {{ error }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  {% endif %}
+
   <div class='container'>
     <div class='admin-container'>
       <div class='admin-header-container'>
@@ -57,7 +66,8 @@
         <tbody>
           {% for item in data %}
           <tr
-                {% if item.status=="approved" %} class='approved {{ item.id }}'
+                {% if item.status=='approved' and item.is_featured=='false' %} class='approved {{ item.id }}'
+                {% elif item.status=='approved' and item.is_featured=='true' %} class='approved featured {{ item.id }}'
                 {% elif item.status=='submitted' %} class='submitted {{ item.id }}'
                 {% else %} class='pending {{ item.id }}'
                 {% endif %}

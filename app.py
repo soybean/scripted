@@ -181,7 +181,11 @@ def admin():
     if 'user' in session:
         query = "SELECT * FROM project WHERE isDeleted='false';"
         result = db.session.execute(query)
-        return render_template('adminView.html', data=result)
+        if 'error_message' in request.args:
+            errorMessage = request.args['error_message']
+            return render_template('adminView.html', data=result, errorMessage=errorMessage)
+        else:
+            return render_template('adminView.html', data=result)
     else:
         return redirect(url_for('login'))
 
@@ -251,6 +255,10 @@ def approve():
 
 @app.route('/feature', methods=["POST"])
 def feature():
+    # Check if MAX_NUM_FEATURED featured projects has been reached
+    featuredProjects = db.session.query(Project).filter(Project.is_featured=='true', Project.isDeleted=='false').all()
+    if len(featuredProjects) >= MAX_NUM_FEATURED:
+        return(redirect(url_for('admin', error_message='Maximum number of featured projects have already been selected.')))
     myID = request.form['id_to_feature']
     db.session.query(Project).filter(Project.id==myID).update({'is_featured': 'true'})
     db.session.commit()

@@ -257,18 +257,13 @@ function checkboxAction() {
             featuredItems[i].style.display = null;
         }
     }
-    else if (!featured) {
-        var featuredItems = document.getElementsByClassName('featured');
-        var i;
-        for (i=0; i < featuredItems.length; i++) {
-            featuredItems[i].style.display = 'none';
-        }
-    }
+    // !featured case already taken care of by !approved
 }
 function pageLoad() {
     document.getElementById('pending-checkbox').checked = true;
     document.getElementById('approved-checkbox').checked = true;
     document.getElementById('feedback-checkbox').checked = true;
+    document.getElementById('featured-checkbox').checked = true;
 }
 
 function eraseText() {
@@ -289,7 +284,9 @@ $('.clickable-row').click(function() {
 });
 
 var searchBar = document.getElementById("searchBar");
-searchBar.addEventListener("input", searchBy, false);
+if (searchBar) {
+  searchBar.addEventListener("input", searchBy, false);
+}
 
 function searchBy() {
   const text = searchBar.value.toLowerCase();
