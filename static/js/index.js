@@ -308,3 +308,15 @@ function searchBy() {
     }
   }
 }
+
+function changeNumDeveloperForms() {
+  num_developers = document.getElementById('num_developers').value;
+  for (var i = 1; i < 6; i++) {
+    const field = document.getElementById('developers' + i);
+    if (i < num_developers) {
+      field.type = 'text';
+    } else {
+      field.type = 'hidden';
+    }
+  }
+}
