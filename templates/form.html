@@ -60,10 +60,10 @@
             Developer name(s)
               <span class="asteriskField">*</span>
             </label>
-            <input class="form-control dev-option" id="developers0" name="developers" type="text" />
+            <input class="form-control dev-option" id="developers0" name="developers0" type="text" />
             <div>
               {% for x in range(5)%}
-                <input class="form-control dev-option" id='developers{{x+1}}' name="developers" type="hidden" />
+                <input class="form-control dev-option" id='developers{{x+1}}' name="developers{{x+1}}" type="hidden" />
               {%endfor %}
             </div>
           </div>
