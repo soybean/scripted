@@ -11,6 +11,19 @@ a:hover {
     text-decoration: none;
 }
 
+.scripted-logo {
+  font-family: "Roboto Slab","Helvetica","Arial",sans-serif;
+  color: white;
+  margin-left: 4%;
+  font-size: 50px;
+  text-decoration: none;
+  decoration: none;
+}
+
+.scripted-logo:hover {
+  color: white;
+}
+
 #nav-panel {
     background-color: #0080ff;
     height: 85px;
