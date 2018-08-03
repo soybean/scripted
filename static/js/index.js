@@ -135,11 +135,12 @@ $(function() {
             data: form_data,
             processData: false,
             contentType: false,
-            success: function(response) {
-                console.log(response);
+            success: function(data, textStatus) {
+                window.location = '/';
             },
             error: function(error) {
-                console.log(error);
+                window.location = '/';
+                // alert('Error: Project could not be submitted');
             }
         });
     });
