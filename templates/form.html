@@ -45,11 +45,13 @@
               Number of developers
               <span class="asteriskField">*</span>
             </label>
-            <select class="select form-control" id="num_developers" name="num_developers">
+            <select class="select form-control" id="num_developers" name="num_developers" onchange="changeNumDeveloperForms()">
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
               <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
             </select>
           </div>
 
@@ -58,7 +60,12 @@
             Developer name(s)
               <span class="asteriskField">*</span>
             </label>
-            <input class="form-control dev-option" id="developers" name="developers" type="text" />
+            <input class="form-control dev-option" id="developers0" name="developers0" type="text" />
+            <div>
+              {% for x in range(5)%}
+                <input class="form-control dev-option" id='developers{{x+1}}' name="developers{{x+1}}" type="hidden" />
+              {%endfor %}
+            </div>
           </div>
 
           <div class="form-group">

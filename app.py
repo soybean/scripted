@@ -73,6 +73,7 @@ def gallery():
 @app.route("/submit", methods=['GET', 'POST'])
 def submit():
     if request.method == 'POST':
+        print (request.form)
         name = request.form['name']
         screenshot = ''
         if 'screenshot' in request.files:
@@ -82,7 +83,15 @@ def submit():
             img.save(path)
             screenshot = "static/img/" + f.filename
         num_developers = request.form['num_developers']
-        developers = request.form['developers']
+        developers = ''
+        for i in range(int(num_developers)):
+            print ("heyyy")
+            print (str(i) + '----')
+            developers += request.form['developers' + str(i)]
+            if not (i==int(num_developers)-1):
+                developers += ','
+        print (developers)
+        print ("waaaat")
         github_usernames = request.form['github_usernames']
         description = request.form['description']
         link = request.form['link']
