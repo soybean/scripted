@@ -50,6 +50,16 @@ function makeAllVisible() {
     }
 }
 
+function galleryShowNoProjectsMessage() {
+  const numProjects = document.getElementsByClassName('project').length;
+  const numProjectsHidden = document.getElementsByClassName('d-none').length;
+  if (numProjects - numProjectsHidden === 0) {
+    document.getElementById('no-projects').classList.remove('hidden');
+  } else {
+    document.getElementById('no-projects').classList.add('hidden');
+  }
+}
+
 function badgeClicked(num) {
     document.getElementById(num).childNodes[1].classList.toggle('cross-clicked');
     var tagName = document.getElementById(num).classList[4];
@@ -103,13 +113,11 @@ function badgeClicked(num) {
 
         }
     }
-    const numProjects = document.getElementsByClassName('project').length;
-    const numProjectsHidden = document.getElementsByClassName('d-none').length;
-    if (numProjects - numProjectsHidden === 0) {
-      document.getElementById('no-projects').classList.remove('hidden');
-    } else {
-      document.getElementById('no-projects').classList.add('hidden');
-    }
+}
+
+function badgeClickedGallery(num) {
+  badgeClicked(num);
+  galleryShowNoProjectsMessage();
 }
 
 /*document.getElementById("num_developers").onchange = function()
@@ -133,6 +141,7 @@ $(function() {
             url: '/submit',
             type: 'POST',
             data: form_data,
+            datatype: 'json',
             processData: false,
             contentType: false,
             success: function(data, textStatus) {
@@ -140,7 +149,8 @@ $(function() {
             },
             error: function(error) {
                 window.location = '/';
-                // alert('Error: Project could not be submitted');
+                // TODO: figure out why we're getting here even though POST request was success
+                // alert('Error: Project not submitted because of the following: ' + JSON.stringify(error));
             }
         });
     });

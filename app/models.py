@@ -51,3 +51,13 @@ class Tags(db.Model):
         self.tag = tag
         self.projectID = projectID
         self.color = color
+
+
+class Admin(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(48), index=True, unique=False)
+    password = db.Column(db.String(48), index=True, unique=False)
+
+    def __init__(self, username, password):
+        self.username = tag
+        self.password = password

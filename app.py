@@ -5,6 +5,7 @@ from flask_mail import Mail, Message
 from app import db, app
 from app.models import Project
 from app.models import Tags
+from app.models import Admin
 from PIL import Image
 
 from flask_debugtoolbar import DebugToolbarExtension
@@ -85,13 +86,9 @@ def submit():
         num_developers = request.form['num_developers']
         developers = ''
         for i in range(int(num_developers)):
-            print ("heyyy")
-            print (str(i) + '----')
             developers += request.form['developers' + str(i)]
             if not (i==int(num_developers)-1):
                 developers += ','
-        print (developers)
-        print ("waaaat")
         github_usernames = request.form['github_usernames']
         description = request.form['description']
         link = request.form['link']
@@ -144,7 +141,6 @@ def submit():
 
                 db.session.commit()
                 db.session.close()
-
 
                 email = Message(subject=CONFIRMATION_MAIL_SUBJECT,
                                 body=CONFIRMATION_MAIL_BODY,
@@ -235,13 +231,46 @@ def delete_tag():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     error = None
+    print(session)
     if request.method == 'POST':
-        if request.form['username'] != 'admin' or request.form['password'] != 'admin':
+        username = request.form['username']
+        password = request.form['password']
+        user = db.session.query(Admin).filter(Admin.username==username, Admin.password==password).first()
+        if user is None:
             error = 'Invalid Credentials. Please try again.'
         else:
-            session['user']='admin'
+            session['user'] = username
             return redirect(url_for('admin'))
     return render_template('login.html', error=error)
+
+@app.route('/logout', methods=['GET', 'POST'])
+def logout():
+    session.clear()
+    return redirect(url_for('login'))
+
+@app.route('/admin/settings', methods=['GET', 'POST'])
+def account_settings():
+    error = None
+    success = None
+    if request.method == 'POST':
+        print(request.form)
+        old_username = request.form['old_username']
+        old_password = request.form['old_password']
+        user = db.session.query(Admin).filter(Admin.username==old_username, Admin.password==old_password).first()
+        if user is None:
+            error = 'Invalid Credentials. Please try again.'
+        else:
+            new_username = request.form['new_username']
+            new_password = request.form['new_password']
+            if new_username == '' and new_password == '':
+                success = 'No changes made.'
+                return render_template('accountSettings.html', success=success)
+            db.session.query(Admin).filter(Admin.username==old_username, Admin.password==old_password).update({'username': new_username, 'password': new_password})
+            db.session.commit()
+            db.session.close()
+            success = 'Successfully updated account information.'
+            return render_template('accountSettings.html', success=success)
+    return render_template('adminSettings.html', error=error)
 
 @app.route('/delete', methods=["POST"])
 def delete():

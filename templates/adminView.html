@@ -2,6 +2,11 @@
 
 {% block title %}Admin Panel{% endblock %}
 
+{% block header_buttons %}
+  <a class='btn btn-outline-light logout-button' href='/logout'>Log Out</a>
+  <a class='btn btn-outline-light account-settings-button' href='/admin/settings'>Account Settings</a>
+{% endblock %}
+
 {% block content %}
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 

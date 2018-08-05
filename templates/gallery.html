@@ -2,6 +2,10 @@
 
 {% block title %}Project Gallery{% endblock %}
 
+{% block header_buttons %}
+  <a class='btn btn-outline-light submit-button' href='/submit'>Submit</a>
+{% endblock %}
+
 {% block content %}
   <body>
 	  <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
@@ -60,7 +64,7 @@
               <div class='col-md-4'>
               <p><small>Filter by tags</small></p>
               {% for tag in tags %}
-              <a href="#/" class="badge badge-pill badge-primary {{ tag.color }} {{ tag.tag }} tag-unclicked" onclick='badgeClicked({{ loop.index }})' id="{{ loop.index }}">{{ tag.tag }}  <div class='cross'>&times;</div></a>
+              <a href="#/" class="badge badge-pill badge-primary {{ tag.color }} {{ tag.tag }} tag-unclicked" onclick='badgeClickedGallery({{ loop.index }})' id="{{ loop.index }}">{{ tag.tag }}  <div class='cross'>&times;</div></a>
               {% if loop.index % 4 == 0 %}
                 <br>
               {% endif %}
