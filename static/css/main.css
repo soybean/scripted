@@ -74,6 +74,28 @@ h3 {
     margin-top: 22px;
 }
 
+.logout-button {
+    border: 2px solid;
+    font-weight: 800;
+    float: right;
+    margin-right: 88.5px;
+    margin-top: 22px;
+}
+
+.account-settings-button {
+    border: 2px solid;
+    font-weight: 800;
+    float: right;
+    margin-right: 20px;
+    margin-top: 22px;
+}
+
+.admin-view-button {
+    border: 2px solid;
+    font-weight: 800;
+    margin-top: -22px;
+}
+
 .button {
     background-color: #FFFFFF;
     color: #14BACC;

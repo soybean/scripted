@@ -2,6 +2,10 @@
 
 {% block title %}Submit a project | ScriptEd{% endblock %}
 
+{% block header_buttons %}
+  <a class='btn btn-outline-light submit-button' href='/submit'>Submit</a>
+{% endblock %}
+
 {% block content %}
 <body>
   <div class="container">
@@ -33,10 +37,10 @@
             </label>
             <input class="form-control" id="screenshot" name="screenshot" type="file" />
             <span class="help-block" id="hint_text">
-              Please upload at least one image
+              Please upload an image
             </span>
             <div class='invalid-feedback'>
-              Please upload at least one image
+              Please upload an image
             </div>
           </div>
 
@@ -150,11 +154,6 @@
             </span>
           </div>
 
-          <div class="form-group">
-            <button class="btn btn-primary " name="submit" type="submit" id="btn_submit">
-              Submit
-            </button>
-          </div>
 
           </div>
         </div>

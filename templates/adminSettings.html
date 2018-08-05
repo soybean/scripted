@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Account Settings{% endblock %}
+
+{% block header_buttons %}
+  <a class='btn btn-outline-light logout-button' href='/logout'>Log Out</a>
+  <a class='btn btn-outline-light account-settings-button' href='/admin/settings'>Admin Account Settings</a>
+{% endblock %}
+
+{% block content %}
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+  <body>
+    <div class='container'>
+      <div class="card login-card">
+        <h5 class="card-header">Account Settings</h5>
+        <div class="card-body">
+
+          {% if error %}
+            <div class="alert alert-danger" role="alert">
+              {{ error }}
+            </div>
+          {% endif %}
+
+          {% if success %}
+            <div class="alert alert-success" role="alert">
+              {{ success }}
+            </div>
+          {% endif %}
+
+          <form action ="" method = "post">
+
+            <div class="form-group">
+              <label class="control-label requiredField" for="old_username">
+                Old Username
+                <span class="asteriskField">*</span>
+              </label>
+              <input class="form-control" name="old_username" type="text" value "{{ request.form.old_username }}" required placeholder="Old Username" />
+              <div class='invalid-feedback'>
+                Please enter your old username
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label requiredField" for="old_password">
+                Old Password
+                <span class="asteriskField">*</span>
+              </label>
+              <input class="form-control" name="old_password" type="password" value "{{ request.form.old_password }}" required placeholder="Old Password" />
+              <div class='invalid-feedback'>
+                Please enter your old password
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label" for="new_username">
+                New Username
+              </label>
+              <input class="form-control" name="new_username" type="text" value "{{ request.form.new_username }}" placeholder="New Username" />
+            </div>
+
+            <div class="form-group">
+              <label class="control-label" for="new_password">
+                New Password
+              </label>
+              <input class="form-control" name="new_password" type="password" value "{{ request.form.new_password }}" placeholder="New Password" />
+            </div>
+
+            <div class="form-group">
+              <button class="btn btn-primary " name="submit" type="submit">
+                Save Settings
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+{% endblock %}
